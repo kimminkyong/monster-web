@@ -28,6 +28,40 @@
             </div>
             <div class="contents">
                 <h3>Dashboard</h3> 
+
+                <div class="box"> 
+                    <div class="dan">
+                        <h4>TOTAL ITEM</h4>
+                        <div class="c100 p100 center">
+                            <span><%= total_item_length %></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="dan">
+                        <h4>STEP 1</h4>
+                        <div class="c100 p54 green center">
+                            <span><%= step1_length %></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="dan">
+                        <h4>STEP 2</h4>
+                        <div class="c100 p72 orange center">
+                            <span><%= step2_length %></span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+
                 
                 <div class="box"> 
                     <div class="dan"> 
@@ -38,7 +72,7 @@
                               <% rowList.forEach( (item) => { %>
                                 <li>
                                   <a href=''> 
-                                    <%= item.code %><span>(<%= item.alg_step %>)</span>
+                                    <strong><%= item.name %> [<%= item.code %>]</strong> - <span>(<%= item.alg_step %>)</span>
                                   </a>
                                 </li>
                               <% }); %>
@@ -57,38 +91,7 @@
                         </div> 
                     </div> 
                 </div> 
-                <div class="box"> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p25 center">
-                            <span>25%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p52 green center">
-                            <span>52%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p72 orange center">
-                            <span>72%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                </div> 
+                
                 <h3>Contents</h3> 
                 <div class="box"> 
                     <div class="dan">1</div> 

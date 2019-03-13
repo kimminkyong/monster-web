@@ -6,6 +6,9 @@
 <link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
 <link rel="stylesheet" href="/stylesheets/circle.css"> 
 
+
+<link rel="stylesheet" href="/stylesheets/nice-date-picker.css"> 
+<script src="/javascript/nice-date-picker.js"></script>
 </head> 
 
 
@@ -71,6 +74,12 @@
                         </div> 
                     </div> 
                 </div> 
+                <div class="box">
+                    <div id="calendar1">
+                        <div id="calendar1-wrapper1"></div>
+                        <span class="calendar1-msg"></span>
+                    </div>
+                </div>
                 <div class="box"> 
                     <div class="dan">
                         <h4>Box Title</h4>
@@ -121,5 +130,26 @@
         </section> 
     </div> 
 </div> 
+
+<script>
+
+new niceDatePicker({
+        dom:document.getElementById('calendar1-wrapper1'),
+        mode:'kr',
+        onClickDate:function(date){
+            document.querySelector('.calendar1-msg').innerHTML='calendar1 your selected '+date;
+        }
+    });
+    /*
+    new niceDatePicker({
+        dom:document.getElementById('calendar1-wrapper2'),
+        year:2017,
+        month:5,
+        mode:'zh',
+        onClickDate:function(date){
+            document.querySelector('.calendar2-msg').innerHTML='calendar2 your selected '+date;
+        }
+    });*/
+</script>
 </body> 
 </html> 
