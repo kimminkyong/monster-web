@@ -12,32 +12,7 @@
 <body> 
 <div class="wrap"> 
     <div class="container"> 
-        <!--
-        <aside> 
-            <div class="icon-menu">
-                <h1 class="logo">Logo</h1>
-                <ul class="icon-list">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                </ul>
-            </div> 
-            <div class="menu"> 
-                <h2>1Depth Menu</h2>
-                <ul class="lnb">
-                    <li><a href="#">Menu1</a></li>
-                    <li><a href="#">Menu2</a></li>
-                    <li><a href="#">Menu3</a></li>
-                </ul>
-                <h2>1Depth Menu</h2>
-                <ul class="lnb">
-                    <li><a href="#">Menu1</a></li>
-                    <li><a href="#">Menu2</a></li>
-                    <li><a href="#">Menu3</a></li>
-                </ul>
-            </div> 
-        </aside>
-        -->
+        
         <% include ./inc/header %>
         <section>
             <div class="header">
@@ -56,13 +31,14 @@
                 
                 <div class="box"> 
                     <div class="dan"> 
-                        <h4>Box Title (<%= listDate %>)</h4> 
+                        <h4><%= listDate %> (<%= rowList.length %>)</h4> 
+                        
                         <div class="box-contents"> 
                             <ul class="list"> 
                               <% rowList.forEach( (item) => { %>
                                 <li>
                                   <a href=''> 
-                                    <%= item.code %><span>(<%= item.step %>)</span>
+                                    <%= item.code %><span>(<%= item.alg_step %>)</span>
                                   </a>
                                 </li>
                               <% }); %>

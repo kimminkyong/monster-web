@@ -1,11 +1,125 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %> World</p>
-  </body>
-</html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
+<link rel="stylesheet" href="/stylesheets/circle.css"> 
+
+</head> 
+
+
+<body> 
+<div class="wrap"> 
+    <div class="container"> 
+        <% include ./inc/header %>
+        <section>
+            <div class="header">
+                <div class="header-title">
+                    Header Info
+                </div>
+                <div class="header-info">
+                    Info
+                </div>
+                <dlv class="login">
+                    Login Info
+                </dlv>
+            </div>
+            <div class="contents">
+                <h3>Dashboard</h3> 
+                
+                <div class="box"> 
+                    <div class="dan"> 
+                        <h4>MA01 LOG</h4> 
+                        
+                        <div class="box-contents"> 
+                            <ul class="list"> 
+                              <% a01LogList.forEach( (item) => { 
+                                  var icl = item.content.split("#")
+                                %>
+                                <li>
+                                  <span><%= item.date %></span>
+                                  <div>
+                                    <% for(var i = 0; i < icl.length; i++){%>
+                                      <p><%= icl[i] %></p>
+                                    <%}%>
+                                    
+                                  </div>
+                                </li>
+                              <% }); %>
+                            </ul> 
+                        </div>
+                    </div> 
+                    <div class="dan"> 
+                        <h4>Box Title</h4> 
+                        <div class="box-contents"> 
+                            <ul class="list"> 
+                                <% codeLogList.forEach( (item) => { 
+                                  var icl = item.content.split("#")
+                                %>
+                                <li>
+                                  <span><%= item.date %></span>
+                                  <div>
+                                    <% for(var i = 0; i < icl.length; i++){%>
+                                      <p><%= icl[i] %></p>
+                                    <%}%>
+                                    
+                                  </div>
+                                </li>
+                              <% }); %>
+                            </ul> 
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="box"> 
+                    <div class="dan">
+                        <h4>Box Title</h4>
+                        <div class="c100 p25 center">
+                            <span>25%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="dan">
+                        <h4>Box Title</h4>
+                        <div class="c100 p52 green center">
+                            <span>52%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="dan">
+                        <h4>Box Title</h4>
+                        <div class="c100 p72 orange center">
+                            <span>72%</span>
+                            <div class="slice">
+                                <div class="bar"></div>
+                                <div class="fill"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </div> 
+                <h3>Contents</h3> 
+                <div class="box"> 
+                    <div class="dan">1</div> 
+                    <div class="dan">2</div> 
+                    <div class="dan">3</div> 
+                    <div class="dan">4</div> 
+                </div> 
+                <div class="box"> 
+                    <div class="dan">1</div> 
+                    <div class="dan">2</div> 
+                    <div class="dan">3</div> 
+                    <div class="dan">4</div> 
+                    <div class="dan">5</div> 
+                </div>
+            </div>
+        </section> 
+    </div> 
+</div> 
+</body> 
+</html> 
