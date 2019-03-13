@@ -20,6 +20,7 @@ router.get('/:date', function(req, res, next) {
         });
 
         console.log('mysql connect completed!!');
+
     // });
     // connection.end();
 });
