@@ -5,11 +5,34 @@ var mysql = require('mysql');
 var dbconfig = require('../config/database.js');
 var connection = mysql.createConnection(dbconfig);
 
+
+function ma01DailyList(req, res, next){
+  connection.query('SELECT * from MA01_daily_list ORDER BY date DESC', function(err, rows) {
+    if(err) throw err;
+    // res.render('index', { title: 'Express', a01LogList : rows });
+    req.ma01DailyList = rows
+    console.log(rows);
+    next();
+  });
+
+}
+
+function showPageRender(req, res){
+  res.render('alg-daily-list', {
+    title: 'ALGORITHM-DAILY-LIST',
+    ma01DailyList : req.ma01DailyList
+  });
+}
+
+router.get('/ma01', ma01DailyList, showPageRender );
+
+
 /* GET home page. */
-router.get('/:date', function(req, res, next) {
+router.get('/ma01/:date', function(req, res, next) {
     var itemTotalLength = 0;
     var step1Length = 0;
     var step2Length = 0;
+    var dateParam = req.params.date;
 
     var totalLength='SELECT count(*) as total from TOTAL_STOCK_CODE';
     connection.query(totalLength, function(err, rows) {
@@ -17,11 +40,12 @@ router.get('/:date', function(req, res, next) {
       itemTotalLength = rows[0].total;
     });
 
-    var s2Length='SELECT count(*) as total from MA01 WHERE alg_step="step2"';
+    var s2Length='SELECT count(*) as total from MA01 WHERE date="'+dateParam+'" and alg_step="step2"';
     connection.query(s2Length, function(err, rows) {
       if(err) throw err;
       step2Length = rows[0].total;
     });
+
 
     var qs='SELECT * from MA01 JOIN TOTAL_STOCK_CODE ON MA01.code = TOTAL_STOCK_CODE.code WHERE MA01.date="'+req.params.date+'"';
     connection.query(qs, function(err, rows) {

@@ -8,6 +8,7 @@
 
 
 <link rel="stylesheet" href="/stylesheets/nice-date-picker.css"> 
+<script src="/javascript/common.js"></script>
 <script src="/javascript/nice-date-picker.js"></script>
 </head> 
 
@@ -32,12 +33,71 @@
                 <h3>Dashboard</h3> 
                 
                 <div class="box"> 
+                    <div class="dan">
+                        <h4>Today</h4>
+                        <p class="center info-num"><%= monster_today %></p>
+                        <p class="info-subTxt center green"><%= monster_today_week %></p>
+                    </div> 
+                    <div class="dan">
+                        <h4>Today totals</h4>
+                        <p class="center info-num"><%= totalStockCount %></p>
+                        <p class="info-subTxt center green"><%= ma01DailyList_day %></p>
+                    </div> 
+                    <div class="dan">
+                        <h4>Today MA01 Search</h4>
+                        <p class="center info-num"><%= ma01DailyList_len %></p>
+                        <p class="info-subTxt center green"><%= ma01DailyList_day %></p>
+                    </div> 
+                </div>
+
+                <div class="box"> 
+                    <div class="dan"> 
+                        <h4>MA01 DAILY LIST(<a href="/alg-list/ma01">더보기</a>)</h4> 
+                        <div class="box-contents"> 
+                            <table class="list-table">
+                                <colgroup>
+                                    <col width="">
+                                    <col width="100">
+                                    <col width="100">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>날짜</th>
+                                        <th>STEP1</th>
+                                        <th>STEP2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% ma01DailyList.forEach( (item) => { %>
+                                    <tr>
+                                        <td class="center"><a href='/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
+                                        <td class="center"><div class="icon-step1"><%= item.step1 %></div></td>
+                                        <td class="center"><div class="icon-step2"><%= item.step2 %></div></td>
+                                    </tr>
+                                <% }); %>               
+
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div> 
+                    <div class="dan"> 
+                        <h4>Box Title</h4> 
+                        <div class="box-contents"> 
+                            <ul class="list"> 
+                                
+                            </ul> 
+                        </div> 
+                    </div> 
+                </div> 
+
+                <div class="box"> 
                     <div class="dan"> 
                         <h4>MA01 LOG</h4> 
                         
                         <div class="box-contents"> 
                             <ul class="list"> 
-                              <% a01LogList.forEach( (item) => { 
+                              <% codeLogList.forEach( (item) => { 
                                   var icl = item.content.split("#")
                                 %>
                                 <li>
@@ -57,7 +117,7 @@
                         <h4>Box Title</h4> 
                         <div class="box-contents"> 
                             <ul class="list"> 
-                                <% codeLogList.forEach( (item) => { 
+                                <% a01LogList.forEach( (item) => { 
                                   var icl = item.content.split("#")
                                 %>
                                 <li>
@@ -80,52 +140,7 @@
                         <span class="calendar1-msg"></span>
                     </div>
                 </div>
-                <div class="box"> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p25 center">
-                            <span>25%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p52 green center">
-                            <span>52%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="dan">
-                        <h4>Box Title</h4>
-                        <div class="c100 p72 orange center">
-                            <span>72%</span>
-                            <div class="slice">
-                                <div class="bar"></div>
-                                <div class="fill"></div>
-                            </div>
-                        </div>
-                    </div> 
-                </div> 
-                <h3>Contents</h3> 
-                <div class="box"> 
-                    <div class="dan">1</div> 
-                    <div class="dan">2</div> 
-                    <div class="dan">3</div> 
-                    <div class="dan">4</div> 
-                </div> 
-                <div class="box"> 
-                    <div class="dan">1</div> 
-                    <div class="dan">2</div> 
-                    <div class="dan">3</div> 
-                    <div class="dan">4</div> 
-                    <div class="dan">5</div> 
-                </div>
+                
             </div>
         </section> 
     </div> 

@@ -22,7 +22,8 @@ h4 {margin-bottom:20px; font-weight:500; font-size:20px;}
 .info-num a {color:#444;}
 .info-subTxt {font-size:18px; font-weight:300;}
 
-.wrap{height:auto; padding:50px;} 
+.wrap{height:auto; padding:50px;}
+
 .login-box {display:flex; flex-flow: column wrap;  align-items: center;} 
 .login-box .logo {flex:1 auto; height:300px;}
 .login-box .input-box {flex:1 auto;}
@@ -125,7 +126,7 @@ h4 {margin-bottom:20px; font-weight:500; font-size:20px;}
     }
 
 
-.container {display:flex; flex-flow: row nowrap; justify-content: space-between; align-items: stretch; min-width:1000px; box-shadow: 1px 1px 20px 3px #444;} 
+.container {display:flex; flex-flow: row nowrap; justify-content: space-between; align-items: stretch; box-shadow: 1px 1px 20px 3px #444;} 
 .container aside {display:flex; flex-flow: row nowrap; height:auto; align-items: stretch; } 
 .container aside .icon-menu {flex:1 auto; width:60px; height:auto; background:#313541;}
 
@@ -162,3 +163,17 @@ h4 {margin-bottom:20px; font-weight:500; font-size:20px;}
 .list-table thead {background:#f9f9f9;}
 .list-table th {padding:12px;}
 .list-table td {padding:12px; border-top:1px solid #ccc;}
+.icon-step1{display:inline-block;font-size:12px; width:auto; padding:2px 10px; text-align:center; border-radius:10px; background:#50ac50; color:#fff; font-weight:100;}
+.icon-step2{display:inline-block;font-size:12px; width:auto; padding:2px 10px; text-align:center; border-radius:10px; background:#4e7df1; color:#fff; font-weight:100;}
+
+
+
+
+@media screen and (max-width: 420px){
+  .wrap{height:auto; padding:0px;}
+  .container .contents {flex: 1 auto; height:auto; background:#f0f2f7; padding:20px 20px 40px;} 
+  .list-table th {padding:5px;}
+  .list-table td {padding:5px; border-top:1px solid #ccc;}
+  .container aside {display:none; height:auto; align-items: stretch; } 
+  .container aside .icon-menu {flex:1 auto; width:60px; height:auto; background:#313541;}
+}

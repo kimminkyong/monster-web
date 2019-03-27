@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
+<link rel="stylesheet" href="/stylesheets/circle.css"> 
+<script src="/javascript/common.js"></script>
+</head> 
+
+
+<body> 
+<div class="wrap"> 
+    <div class="container"> 
+        
+        <% include ./inc/header %>
+        <section>
+            <div class="header">
+                <div class="header-title">
+                    Header Info
+                </div>
+                <div class="header-info">
+                    Info
+                </div>
+                <dlv class="login">
+                    Login Info
+                </dlv>
+            </div>
+            <div class="contents">
+                <h3><%= title %></h3> 
+
+                <div class="box"> 
+                    <div class="dan"> 
+                        <h4>MA01 DAILY LIST</h4> 
+                        <div class="box-contents"> 
+                            <table class="list-table">
+                                <colgroup>
+                                    <col width="">
+                                    <col width="150">
+                                    <col width="150">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>날짜</th>
+                                        <th>STEP1</th>
+                                        <th>STEP2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% ma01DailyList.forEach( (item) => { %>
+                                    <tr>
+                                        <td><a href='/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
+                                        <td class="center"><div class="icon-step1"><%= item.step1 %></div></td>
+                                        <td class="center"><div class="icon-step2"><%= item.step2 %></div></td>
+                                    </tr>
+                                <% }); %>               
+
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div> 
+                    <div class="dan"> 
+                        <h4>Box Title</h4> 
+                        <div class="box-contents"> 
+                            <ul class="list"> 
+                                
+                            </ul> 
+                        </div> 
+                    </div> 
+                </div> 
+
+                
+            </div>
+        </section> 
+    </div> 
+</div> 
+</body> 
+</html> 
