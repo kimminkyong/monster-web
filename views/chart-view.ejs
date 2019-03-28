@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title><%= title %></title>
+<link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
+<link rel="stylesheet" href="/stylesheets/circle.css"> 
+<script src="/javascript/common.js"></script>
+
+<script type="text/javascript" src="/javascript/jquery.min.js"></script>
+<script type="text/javascript" src="/javascript/jquery.jqplot.js"></script>
+<script type="text/javascript" src="/javascript/jqplot.dateAxisRenderer.js"></script>
+<script type="text/javascript" src="/javascript/jqplot.categoryAxisRenderer.js"></script>
+<script type="text/javascript" src="/javascript/jqplot.ohlcRenderer.js"></script>
+<script type="text/javascript" src="/javascript/jqplot.highlighter.js"></script>
+<script type="text/javascript" src="/javascript//jqplot.cursor.js"></script>
+<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jqplot.css" />
+
+
+<script>
+
+ohlc = [
+
+['03/09/2009', 84.18, 97.2, 82.57, 95.93],
+['03/02/2009', 88.12, 92.77, 82.33, 85.3],
+['02/23/2009', 91.65, 92.92, 86.51, 89.31],
+['02/17/2009', 96.87, 97.04, 89, 91.2],
+['02/09/2009', 100, 103, 95.77, 99.16],
+['02/02/2009', 89.1, 100, 88.9, 99.72],
+['01/26/2009', 88.86, 95, 88.3, 90.13],
+['01/20/2009', 81.93, 90, 78.2, 88.36],
+['01/12/2009', 90.46, 90.99, 80.05, 82.33],
+['01/05/2009', 93.17, 97.17, 90.04, 90.58],
+['12/29/2008', 86.52, 91.04, 84.72, 90.75],
+['12/22/2008', 90.02, 90.03, 84.55, 85.81],
+['12/15/2008', 95.99, 96.48, 88.02, 90],
+['12/08/2008', 97.28, 103.6, 92.53, 98.27],
+['12/01/2008', 91.3, 96.23, 86.5, 94],
+['11/24/2008', 85.21, 95.25, 84.84, 92.67],
+['11/17/2008', 88.48, 91.58, 79.14, 82.58],    
+['11/10/2008', 100.17, 100.4, 86.02, 90.24],
+['11/03/2008', 105.93, 111.79, 95.72, 98.24],
+['10/27/2008', 95.07, 112.19, 91.86, 107.59],
+['10/20/2008', 99.78, 101.25, 90.11, 96.38],
+['10/13/2008', 104.55, 116.4, 85.89, 97.4],
+['10/06/2008', 91.96, 101.5, 85, 96.8],
+['09/29/2008', 119.62, 119.68, 94.65, 97.07],
+['09/22/2008', 139.94, 140.25, 123, 128.24],
+['09/15/2008', 142.03, 147.69, 120.68, 140.91],
+['09/08/2008', 164.57, 164.89, 146, 148.94]
+];
+    </script>
+
+
+</head> 
+
+
+<body> 
+<div class="wrap"> 
+    <div class="container"> 
+        
+        <% include ./inc/header %>
+        <section>
+            <div class="header">
+                <div class="header-title">
+                    Header Info
+                </div>
+                <div class="header-info">
+                    Info
+                </div>
+                <dlv class="login">
+                    Login Info
+                </dlv>
+            </div>
+            <div class="contents">
+                <h3>Dashboard</h3> 
+
+                <div class="box"> 
+                    <div id="chart2" class="chart2"></div>
+                </div> 
+
+                
+                
+
+                
+            </div>
+        </section> 
+    </div> 
+</div> 
+
+
+<script>
+
+$(document).ready(function(){  
+    plot2 = $.jqplot('chart2',[ohlc],{
+      title: 'Chart',
+      axesDefaults:{},
+      axes: {
+          xaxis: {
+              renderer:$.jqplot.DateAxisRenderer
+          },
+          yaxis: {
+              tickOptions:{ prefix: '$' }
+          }
+      },
+      series: [{renderer:$.jqplot.OHLCRenderer, rendererOptions:{candleStick:true}}],
+      cursor:{
+          zoom:true,
+          tooltipOffset: 10,
+          tooltipLocation: 'nw'
+      },
+      highlighter: {
+          showMarker:false,
+          tooltipAxes: 'xy',
+          yvalues: 4,
+          formatString:'<table class="jqplot-highlighter"> \
+          <tr><td>date:</td><td>%s</td></tr> \
+          <tr><td>open:</td><td>%s</td></tr> \
+          <tr><td>hi:</td><td>%s</td></tr> \
+          <tr><td>low:</td><td>%s</td></tr> \
+          <tr><td>close:</td><td>%s</td></tr></table>'
+      }
+    });
+});
+
+    </script>
+</body> 
+</html> 

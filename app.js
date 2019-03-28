@@ -8,6 +8,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var alglistRouter = require('./routes/alg-list');
 var memberRouter = require('./routes/member');
+var chartRouter = require('./routes/chart');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/alg-list', alglistRouter);
 app.use('/member', memberRouter);
+app.use('/chart', chartRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
