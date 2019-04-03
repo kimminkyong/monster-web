@@ -66,13 +66,15 @@
                 <h3><%= listDate %></h3> 
                 <table class="list-table">
                     <colgroup>
-                        <col width="120">
+                        <col width="150">
                         <col width="80">
                         <col width="110">
                         <col width="">
                         <col width="150">
                         <col width="150">
-                        <col width="150">
+                        <col width="120">
+                        <col width="120">
+                        <col width="120">
                     </colgroup>
                     <thead>
                         <tr>
@@ -81,8 +83,10 @@
                             <th>스텝</th>
                             <th>등락율</th>
                             <th>오늘거래량</th>
-                            <th>평균거래량(30일)</th>
                             <th>평균거래량(60일)</th>
+                            <th>기준가</th>
+                            <th>최고가</th>
+                            <th>최저가</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -93,15 +97,20 @@
                         var tv = AddComma(item.today_volume);
                         var v30 = AddComma(item.avr30_volume);
                         var v60 = AddComma(item.avr60_volume);
+                        var max_p = AddComma(item.max_price);
+                        var min_p = AddComma(item.min_price);
+                        var base_p = AddComma(item.base_price);
                         %>                     
                         <tr>
-                            <td><%= item.name %></td>
+                            <td><a href="/alg-list/detail-view/<%= item.code %>"><%= item.name %></a></td>
                             <td class="center"><%= item.code %></td>
                             <td class="center"><div class="icon-<%= item.alg_step %>"><%= item.alg_step %></div></td>
                             <td class="center"><%= item.change_per %>%</td>
                             <td class="center"><%= tv %></td>
-                            <td class="center"><%= v30 %></td>
                             <td class="center"><%= v60 %></td>
+                            <td class="center"><%= base_p %></td>
+                            <td class="center"><%= max_p %></td>
+                            <td class="center"><%= min_p %></td>
                         </tr>
                         <% }); %>
                     </tbody>

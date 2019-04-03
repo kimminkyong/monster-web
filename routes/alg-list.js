@@ -3,7 +3,9 @@ var router = express.Router();
 
 var mysql = require('mysql');
 var dbconfig = require('../config/database.js');
+var db_sci = require('../config/db_sci.js');
 var connection = mysql.createConnection(dbconfig);
+var conn_sci = mysql.createConnection(db_sci);
 
 
 function ma01DailyList(req, res, next){
@@ -25,6 +27,27 @@ function showPageRender(req, res){
 }
 
 router.get('/ma01', ma01DailyList, showPageRender );
+
+router.get('/detail-view/:code', function(req, res, next){
+  var dateParam = req.params.code;
+  var daily_stock_info = "";
+
+  conn_sci.query('SELECT * from `'+dateParam+'` ORDER BY date DESC LIMIT 30', function(err, rows) {
+    if(err) throw err;
+    // res.render('index', { title: 'Express', a01LogList : rows });
+    daily_stock_info = rows;
+    
+    console.log(daily_stock_info);
+    res.render('detail-view', { 
+      title: 'ITEM DETAIL VIEW', 
+      dailyStockInfo : daily_stock_info
+    });
+
+  });
+  
+  
+
+})
 
 
 /* GET home page. */
