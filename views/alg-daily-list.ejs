@@ -2,78 +2,367 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title><%= title %></title>
-<link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
-<link rel="stylesheet" href="/stylesheets/circle.css"> 
-<script src="/javascript/common.js"></script>
+<!-- <link rel="stylesheet" href="/stylesheets/ui.admin.css"> 
+<link rel="stylesheet" href="/stylesheets/circle.css">  -->
+
+<link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+
+<!-- Font Awesome -->
+<link href="/stylesheets/font-awesome.min.css" rel="stylesheet">
+<!-- Custom Theme Style -->
+<link href="/stylesheets/custom.min.css" rel="stylesheet">
+
 </head> 
 
 
-<body> 
-<div class="wrap"> 
-    <div class="container"> 
-        
-        <% include ./inc/header %>
-        <section>
-            <div class="header">
-                <div class="header-title">
-                    Header Info
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            
+            <!-- include LNB -->
+            <% include ./inc/lnb %>
+            <!-- //include LNB -->
+    
+            <!-- top navigation -->
+            <% include ./inc/header %>
+            <!-- /top navigation -->
+    
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <!-- top tiles -->
+                <div class="row tile_count">
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
+                    <div class="count">2500</div>
+                    <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                  </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>
+                    <div class="count">123.50</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                  </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
+                    <div class="count green">2,500</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                  </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
+                    <div class="count">4,567</div>
+                    <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                  </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
+                    <div class="count">2,315</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                  </div>
+                  <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                    <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
+                    <div class="count">7,325</div>
+                    <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                  </div>
                 </div>
-                <div class="header-info">
-                    Info
-                </div>
-                <dlv class="login">
-                    Login Info
-                </dlv>
-            </div>
-            <div class="contents">
-                <h3><%= title %></h3> 
+                <!-- /top tiles -->
 
-                <div class="box"> 
-                    <div class="dan"> 
-                        <h4>MA01 DAILY LIST</h4> 
-                        <div class="box-contents"> 
-                            <table class="list-table">
-                                <colgroup>
-                                    <col width="">
-                                    <col width="150">
-                                    <col width="150">
-                                </colgroup>
-                                <thead>
-                                    <tr>
-                                        <th>날짜</th>
-                                        <th>STEP1</th>
-                                        <th>STEP2</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <% ma01DailyList.forEach( (item) => { %>
-                                    <tr>
-                                        <td><a href='/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
-                                        <td class="center"><div class="icon-step1"><%= item.step1 %></div></td>
-                                        <td class="center"><div class="icon-step2"><%= item.step2 %></div></td>
-                                    </tr>
-                                <% }); %>               
 
-                                </tbody>
-                            </table>
-                            
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+
+                      <div class="row x_title">
+                        <div class="col-md-12">
+                          <h3>DAILY LIST <small>MA01</small></h3>
                         </div>
-                    </div> 
-                    <div class="dan"> 
-                        <h4>Box Title</h4> 
-                        <div class="box-contents"> 
-                            <ul class="list"> 
-                                
-                            </ul> 
-                        </div> 
-                    </div> 
-                </div> 
+                      </div>
 
-                
+                      <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center">날짜</th>
+                                <th class="text-center">STEP1</th>
+                                <th class="text-center">STEP2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <% ma01DailyList.forEach( (item) => { %>
+                            <tr>
+                                <td class="text-center"><a href='/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
+                                <td class="text-center"><div class="icon-step1"><%= item.step1 %></div></td>
+                                <td class="text-center"><div class="icon-step2"><%= item.step2 %></div></td>
+                            </tr>
+                          <% }); %>               
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              
+
+
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Top Profiles <small>Sessions</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item One Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Three Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-4">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Top Profiles <small>Sessions</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item One Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Three Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-4">
+                    <div class="x_panel">
+                      <div class="x_title">
+                        <h2>Top Profiles <small>Sessions</small></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                          <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                          </li>
+                          <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="#">Settings 1</a>
+                              </li>
+                              <li><a href="#">Settings 2</a>
+                              </li>
+                            </ul>
+                          </li>
+                          <li><a class="close-link"><i class="fa fa-close"></i></a>
+                          </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                      </div>
+                      <div class="x_content">
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item One Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Two Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                        <article class="media event">
+                          <a class="pull-left date">
+                            <p class="month">April</p>
+                            <p class="day">23</p>
+                          </a>
+                          <div class="media-body">
+                            <a class="title" href="#">Item Three Title</a>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            
+
+
+
+
+
+              
             </div>
-        </section> 
-    </div> 
-</div> 
-</body> 
+            <!-- /page content -->
+
+            <!-- footer content -->
+            <% include ./inc/footer %>
+            <!-- /footer content -->
+        </div>
+    </div>
+
+    <!-- Bootstrap -->
+    <script src="/javascript/bootstrap.min.js"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="/javascript/bootstrap-progressbar.min.js"></script>
+    <!-- iCheck -->
+    <script src="/javascript/icheck.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="/javascript/custom.js"></script>
+        
+</body>
 </html> 

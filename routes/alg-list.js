@@ -28,26 +28,39 @@ function showPageRender(req, res){
 
 router.get('/ma01', ma01DailyList, showPageRender );
 
-router.get('/detail-view/:code', function(req, res, next){
-  var dateParam = req.params.code;
-  var daily_stock_info = "";
 
-  conn_sci.query('SELECT * from `'+dateParam+'` ORDER BY date DESC LIMIT 30', function(err, rows) {
+
+
+
+function dvStep1(req, res, next){
+  connection.query('SELECT name from TOTAL_STOCK_CODE WHERE code="'+req.params.code+'"', function(err, rows) {
     if(err) throw err;
-    // res.render('index', { title: 'Express', a01LogList : rows });
-    daily_stock_info = rows;
-    
-    console.log(daily_stock_info);
-    res.render('detail-view', { 
-      title: 'ITEM DETAIL VIEW', 
-      dailyStockInfo : daily_stock_info
-    });
-
+    req.codeName = rows[0].name;
+    next();
   });
   
-  
+}
 
-})
+function dvStep2(req, res, next){
+  conn_sci.query('SELECT * from `'+req.params.code+'` ORDER BY date DESC LIMIT 30', function(err, rows) {
+    if(err) throw err;
+    req.daily_stock_info = rows;
+    next();
+  });
+}
+
+function dvRender(req, res){
+  res.render('detail-view', { 
+    title: 'ITEM DETAIL VIEW', 
+    dailyStockInfo : req.daily_stock_info,
+    listCodeName : req.codeName,
+    listCode : req.params.code
+  });
+}
+
+
+router.get('/detail-view/:code', dvStep1, dvStep2, dvRender );
+
 
 
 /* GET home page. */

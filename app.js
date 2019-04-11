@@ -12,6 +12,16 @@ var chartRouter = require('./routes/chart');
 
 var app = express();
 
+// app.get('/', function(req, res){
+//   var ua = req.header('user-agent');
+//   // Check the user-agent string to identyfy the device. 
+//   if(/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) {
+//       console.log("모바일")
+//   } else {
+//       console.log("브라우저")
+//   }
+// });
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

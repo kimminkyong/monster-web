@@ -4,6 +4,7 @@ var router = express.Router();
 var mysql = require('mysql');
 var dbconfig = require('../config/database.js');
 var connection = mysql.createConnection(dbconfig);
+var MobileDetect = require('mobile-detect')
 
 /* GET home page. */
 
@@ -73,6 +74,10 @@ function monsterTodayWeek(){
 }
 
 function showPageRender(req, res){
+  //모바일 접속 확인 
+  var md = new MobileDetect(req.headers['user-agent']);
+  console.log(md.mobile());
+  
   res.render('index', {
     title: 'MONSTER',
     a01LogList: req.a01LogList,
