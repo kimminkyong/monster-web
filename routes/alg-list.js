@@ -42,7 +42,7 @@ function dvStep1(req, res, next){
 }
 
 function dvStep2(req, res, next){
-  conn_sci.query('SELECT * from `'+req.params.code+'` ORDER BY date DESC LIMIT 30', function(err, rows) {
+  conn_sci.query('SELECT * from `'+req.params.code+'` ORDER BY date DESC LIMIT 45', function(err, rows) {
     if(err) throw err;
     req.daily_stock_info = rows;
     next();
@@ -60,6 +60,38 @@ function dvRender(req, res){
 
 
 router.get('/detail-view/:code', dvStep1, dvStep2, dvRender );
+
+
+
+function tdvStep1(req, res, next){
+  connection.query('SELECT name from TOTAL_STOCK_CODE WHERE code="'+req.params.code+'"', function(err, rows) {
+    if(err) throw err;
+    req.codeName = rows[0].name;
+    next();
+  });
+  
+}
+
+function tdvStep2(req, res, next){
+  conn_sci.query('SELECT * from `'+req.params.code+'` ORDER BY date DESC LIMIT 45', function(err, rows) {
+    if(err) throw err;
+    req.daily_stock_info = rows;
+    next();
+  });
+}
+
+function tdvRender(req, res){
+  res.render('tracking-view', { 
+    title: 'ITEM TRACKING VIEW', 
+    dailyStockInfo : req.daily_stock_info,
+    listCodeName : req.codeName,
+    listCode : req.params.code,
+    listDate : req.params.date
+  });
+}
+
+router.get('/tracking-view/:code/:date', tdvStep1, tdvStep2, tdvRender );
+
 
 
 

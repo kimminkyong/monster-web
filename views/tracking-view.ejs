@@ -41,6 +41,7 @@ var kmk = [];
 var tickDate = [];
 var chartVol = [];
 var ohlc = [];
+var trackingDate = "";
     </script>
 
 
@@ -63,6 +64,20 @@ var ohlc = [];
     
             <!-- page content -->
             <div class="right_col" role="main">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                            <h2><%= listCodeName %>(<%= listCode%>)</h2>
+
+                            <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div id="chartGraph" style="height: 600px; min-width: 310px"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -134,20 +149,7 @@ var ohlc = [];
                     </div>
                 </div>
             
-                <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="x_panel">
-                            <div class="x_title">
-                            <h2><%= listCodeName %>(<%= listCode%>)</h2>
-
-                            <div class="clearfix"></div>
-                            </div>
-                            <div class="x_content">
-                                <div id="chartGraph" style="height: 600px; min-width: 310px"></div>
-                            </div>
-                        </div>
-                     </div>
-                </div>
+                
 
 
               
@@ -184,6 +186,13 @@ var ohlc = [];
         
 <!-- Chart Draw Scripts -->
 <script>
+
+trackingDate = '<%= listDate %>';
+var trackingDay = trackingDate.split("-");
+trackingDay = Date.UTC(trackingDay[0], trackingDay[1]-1, trackingDay[2]);
+console.log("trackingDate");
+console.log(trackingDay);
+
 function chartDraw(){
     var chartdata = [];
     var groupingUnits = [['day',[1]], ['week',[1]]]
@@ -251,7 +260,7 @@ function chartDraw(){
         },{
             type:'flags',
             data:[{
-                x:"",
+                x:trackingDay,
                 title:'기준일',
                 text:'test'
             }],

@@ -76,7 +76,7 @@
                                     <h2 class="w-100">MA01 DAILY LIST </h2>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-3 tile_stats_count">
-                                    <a class="btn btn-default source pull-right" href="">More</a>
+                                    <a class="btn btn-default btn-sm source pull-right" href="/alg-list/ma01">More</a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -175,15 +175,15 @@
                                         <div class="block">
                                             <div class="tags">
                                                 <a href="" class="tag">
-                                                    <span>Monster</span>
+                                                    <span><%= item.date %></span>
                                                 </a>
                                             </div>
                                             <div class="block_content">
-                                                <h2 class="title"><a>오늘의 로그</a></h2>
+                                                <h2 class="title"><a>Monster LOG</a></h2>
                                                 <div class="byline">
                                                     <span><%= item.date %></span> by <a>Monater Machine</a>
                                                 </div>
-                                                    <% for(var i = 0; i < icl.length; i++){%>
+                                                    <% for(var i = 1; i < icl.length; i++){%>
                                                     <p class="excerpt"><%= icl[i] %></p>
                                                     <%}%>
                                                 </div>
@@ -211,15 +211,15 @@
                                         <div class="block">
                                             <div class="tags">
                                                 <a href="" class="tag">
-                                                    <span>MA01</span>
+                                                    <span><%= item.date %></span>
                                                 </a>
                                             </div>
                                             <div class="block_content">
-                                                <h2 class="title"><a>오늘의 로그</a></h2>
+                                                <h2 class="title"><a>MA01 LOG</a></h2>
                                                 <div class="byline">
                                                     <span><%= item.date %></span> by <a>Monater Machine</a>
                                                 </div>
-                                                    <% for(var i = 0; i < icl.length; i++){%>
+                                                    <% for(var i = 1; i < icl.length; i++){%>
                                                     <p class="excerpt"><%= icl[i] %></p>
                                                     <%}%>
                                                 </div>
