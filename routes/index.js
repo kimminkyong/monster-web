@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
+var auth = require('./auth');
+
 var mysql = require('mysql');
 var dbconfig = require('../config/database.js');
 var connection = mysql.createConnection(dbconfig);
-var MobileDetect = require('mobile-detect')
+//var MobileDetect = require('mobile-detect')
+
+var passport = require('passport');
+const {check, validationResult} = require('express-validator/check');
 
 /* GET home page. */
 
@@ -13,7 +18,7 @@ function monsterA01Log(req, res, next){
     if(err) throw err;
     // res.render('index', { title: 'Express', a01LogList : rows });
     req.a01LogList = rows
-    console.log(rows);
+    //console.log(rows);
     next();
   });
 
@@ -24,7 +29,7 @@ function monsterCodeLog(req, res, next){
     if(err) throw err;
     // res.render('index', { title: 'Express', a01LogList : rows });
     req.codeLogList = rows
-    console.log(rows);
+    //console.log(rows);
     next();
   });
 
@@ -37,7 +42,7 @@ function ma01DailyList(req, res, next){
     req.ma01DailyList = rows;
     req.ma01DailyList_day = rows[0].date;
     req.ma01DailyList_len = rows[0].step2;
-    console.log(rows);
+    //console.log(rows);
     next();
   });
 
@@ -47,7 +52,7 @@ function countTotalStock(req, res, next){
   connection.query('SELECT count(*) as total from TOTAL_STOCK_CODE', function(err, rows) {
     if(err) throw err;
     req.totalStockLength = AddComma(rows[0].total);
-    console.log(rows);
+    //console.log(rows);
     next();
   });
 
@@ -75,24 +80,47 @@ function monsterTodayWeek(){
 
 function showPageRender(req, res){
   //모바일 접속 확인 
-  var md = new MobileDetect(req.headers['user-agent']);
-  console.log(md.mobile());
-  
-  res.render('index', {
-    title: 'MONSTER',
-    a01LogList: req.a01LogList,
-    codeLogList: req.codeLogList,
-    totalStockCount: req.totalStockLength,
-    ma01DailyList : req.ma01DailyList,
-    ma01DailyList_day : req.ma01DailyList_day,
-    ma01DailyList_len : req.ma01DailyList_len,
-    monster_today : monsterToday(),
-    monster_today_week : monsterTodayWeek()
-  });
+  //var md = new MobileDetect(req.headers['user-agent']);
+  //console.log(md.mobile());
+  console.log("user session check!");
+  console.log(req.session.passport);
+
+ 
+    res.render('index', {
+      title: 'MONSTER',
+      user:req.user,
+      a01LogList: req.a01LogList,
+      codeLogList: req.codeLogList,
+      totalStockCount: req.totalStockLength,
+      ma01DailyList : req.ma01DailyList,
+      ma01DailyList_day : req.ma01DailyList_day,
+      ma01DailyList_len : req.ma01DailyList_len,
+      monster_today : monsterToday(),
+      monster_today_week : monsterTodayWeek()
+    });
+
 }
 
-router.get('/', monsterA01Log, monsterCodeLog, countTotalStock, ma01DailyList, showPageRender );
+router.get('/', auth.isAuthenticated, monsterA01Log, monsterCodeLog, countTotalStock, ma01DailyList, showPageRender );
 
+//router.post('/', auth.isAuthenticated, monsterA01Log, monsterCodeLog, countTotalStock, ma01DailyList, showPageRender );
+function formCheck(req, res, next){
+  var errors = validationResult(req);
+  console.log("formCheck");
+  console.log(req.body);
+  if (!errors.isEmpty()) {
+    return res.status(422).jsonp(errors.array());
+  } else {
+    //res.send({});
+    next();
+  }
+  
+}
 
+router.post('/',formCheck, passport.authenticate('local', {
+  successRedirect:'/',
+  failureRedirect:'/member/login'
+  //,failureFlash:true
+}));
 
 module.exports = router;

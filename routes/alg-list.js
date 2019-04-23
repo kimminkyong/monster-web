@@ -7,6 +7,8 @@ var db_sci = require('../config/db_sci.js');
 var connection = mysql.createConnection(dbconfig);
 var conn_sci = mysql.createConnection(db_sci);
 
+var auth = require('./auth');
+
 
 function ma01DailyList(req, res, next){
   connection.query('SELECT * from MA01_daily_list ORDER BY date DESC', function(err, rows) {
@@ -22,11 +24,12 @@ function ma01DailyList(req, res, next){
 function showPageRender(req, res){
   res.render('alg-daily-list', {
     title: 'ALGORITHM-DAILY-LIST',
+    user:req.user,
     ma01DailyList : req.ma01DailyList
   });
 }
 
-router.get('/ma01', ma01DailyList, showPageRender );
+router.get('/ma01', auth.isAuthenticated, ma01DailyList, showPageRender );
 
 
 
@@ -51,7 +54,8 @@ function dvStep2(req, res, next){
 
 function dvRender(req, res){
   res.render('detail-view', { 
-    title: 'ITEM DETAIL VIEW', 
+    title: 'ITEM DETAIL VIEW',
+    user:req.user,
     dailyStockInfo : req.daily_stock_info,
     listCodeName : req.codeName,
     listCode : req.params.code
@@ -59,7 +63,7 @@ function dvRender(req, res){
 }
 
 
-router.get('/detail-view/:code', dvStep1, dvStep2, dvRender );
+router.get('/detail-view/:code', auth.isAuthenticated, dvStep1, dvStep2, dvRender );
 
 
 
@@ -82,7 +86,8 @@ function tdvStep2(req, res, next){
 
 function tdvRender(req, res){
   res.render('tracking-view', { 
-    title: 'ITEM TRACKING VIEW', 
+    title: 'ITEM TRACKING VIEW',
+    user:req.user,
     dailyStockInfo : req.daily_stock_info,
     listCodeName : req.codeName,
     listCode : req.params.code,
@@ -90,13 +95,16 @@ function tdvRender(req, res){
   });
 }
 
-router.get('/tracking-view/:code/:date', tdvStep1, tdvStep2, tdvRender );
+router.get('/tracking-view/:code/:date', auth.isAuthenticated, tdvStep1, tdvStep2, tdvRender );
 
 
 
 
 /* GET home page. */
-router.get('/ma01/:date', function(req, res, next) {
+router.get('/ma01/:date', auth.isAuthenticated, function(req, res, next) {
+    console.log("authInfo");
+    console.log(req.user);
+
     var itemTotalLength = 0;
     var step1Length = 0;
     var step2Length = 0;
@@ -120,14 +128,15 @@ router.get('/ma01/:date', function(req, res, next) {
       if(err) throw err;
       step1Length = rows.length;
       res.render('alg-list', { 
-        title: 'ALGORITHM LIST', 
+        title: 'ALGORITHM LIST',
+        user:req.user,
         rowList : rows,
         listDate : req.params.date, 
         total_item_length: itemTotalLength,
         step1_length: step1Length,
         step2_length: step2Length
       });
-      console.log('The solution is: ', rows);
+      //console.log('The solution is: ', rows);
     });
 
     console.log('mysql connect completed!!');
