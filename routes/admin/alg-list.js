@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 
 var mysql = require('mysql');
-var dbconfig = require('../config/database.js');
-var db_sci = require('../config/db_sci.js');
+var dbconfig = require('../../config/database.js');
+var db_sci = require('../../config/db_sci.js');
 var connection = mysql.createConnection(dbconfig);
 var conn_sci = mysql.createConnection(db_sci);
 
-var auth = require('./auth');
+var auth = require('../admin/auth');
 
 
 function ma01DailyList(req, res, next){
@@ -22,14 +22,14 @@ function ma01DailyList(req, res, next){
 }
 
 function showPageRender(req, res){
-  res.render('alg-daily-list', {
+  res.render('admin/alg-daily-list', {
     title: 'ALGORITHM-DAILY-LIST',
     user:req.user,
     ma01DailyList : req.ma01DailyList
   });
 }
 
-router.get('/ma01', auth.isAuthenticated, ma01DailyList, showPageRender );
+router.get('/ma01', auth.check, ma01DailyList, showPageRender );
 
 
 
@@ -53,7 +53,7 @@ function dvStep2(req, res, next){
 }
 
 function dvRender(req, res){
-  res.render('detail-view', { 
+  res.render('admin/detail-view', { 
     title: 'ITEM DETAIL VIEW',
     user:req.user,
     dailyStockInfo : req.daily_stock_info,
@@ -63,7 +63,7 @@ function dvRender(req, res){
 }
 
 
-router.get('/detail-view/:code', auth.isAuthenticated, dvStep1, dvStep2, dvRender );
+router.get('/detail-view/:code', auth.check, dvStep1, dvStep2, dvRender );
 
 
 
@@ -85,7 +85,7 @@ function tdvStep2(req, res, next){
 }
 
 function tdvRender(req, res){
-  res.render('tracking-view', { 
+  res.render('admin/tracking-view', { 
     title: 'ITEM TRACKING VIEW',
     user:req.user,
     dailyStockInfo : req.daily_stock_info,
@@ -95,13 +95,13 @@ function tdvRender(req, res){
   });
 }
 
-router.get('/tracking-view/:code/:date', auth.isAuthenticated, tdvStep1, tdvStep2, tdvRender );
+router.get('/tracking-view/:code/:date', auth.check, tdvStep1, tdvStep2, tdvRender );
 
 
 
 
 /* GET home page. */
-router.get('/ma01/:date', auth.isAuthenticated, function(req, res, next) {
+router.get('/ma01/:date', auth.check, function(req, res, next) {
     console.log("authInfo");
     console.log(req.user);
 
@@ -127,7 +127,7 @@ router.get('/ma01/:date', auth.isAuthenticated, function(req, res, next) {
     connection.query(qs, function(err, rows) {
       if(err) throw err;
       step1Length = rows.length;
-      res.render('alg-list', { 
+      res.render('admin/alg-list', { 
         title: 'ALGORITHM LIST',
         user:req.user,
         rowList : rows,

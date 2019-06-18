@@ -29,11 +29,11 @@
         <div class="main_container">
             
             <!-- include LNB -->
-            <% include ./inc/lnb %>
+            <% include ./../inc/lnb %>
             <!-- //include LNB -->
     
             <!-- top navigation -->
-            <% include ./inc/header %>
+            <% include ./../inc/header %>
             <!-- /top navigation -->
 
             <!-- page content -->
@@ -76,7 +76,7 @@
                                     <h2 class="w-100">MA01 DAILY LIST </h2>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-3 tile_stats_count">
-                                    <a class="btn btn-default btn-sm source pull-right" href="/alg-list/ma01">More</a>
+                                    <a class="btn btn-default btn-sm source pull-right" href="/admin/alg-list/ma01">More</a>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
@@ -94,7 +94,7 @@
                                 <tbody>
                                 <% ma01DailyList.forEach( (item) => { %>
                                     <tr>
-                                        <td class="text-center"><a href='/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
+                                        <td class="text-center"><a href='/admin/alg-list/ma01/<%= item.date %>'><%= item.date %></a></td>
                                         <td class="text-center"><div class="icon-step1"><%= item.step1 %></div></td>
                                         <td class="text-center"><div class="icon-step2"><%= item.step2 %></div></td>
                                     </tr>
@@ -245,7 +245,7 @@
             <!-- /page content -->
 
             <!-- footer content -->
-            <% include ./inc/footer %>
+            <% include ./../inc/footer %>
             <!-- /footer content -->
         </div>
     </div>
@@ -309,7 +309,7 @@
 <body> 
 <div class="wrap"> 
     <div class="container"> 
-        <% include ./inc/header %>
+        
         <section>
             <div class="header">
                 <div class="header-title">

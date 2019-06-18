@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ./../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section class="box-wrap">
+      <div class="intro-wrap">
+          <ul class="intro">
+              <li>
+                  <a href="/stockwebzine/info.html">
+                      <div class="bg1">
+                          <div class="intro-title">
+                              <p class="name">STANDARD</p>
+                              <p class="money color-orange">9.9$ / mon</p>
+                          </div>
+                      </div>
+                      <ul class="intro-info">
+                          <li>종목 추천 서비스 제공</li>
+                          <li>차트 제공</li>
+                          <li>종목 저장기능 제공</li>
+                      </ul>
+                  </a>
+              </li>
+              <li>
+                  <a href="/stockwebzine/info.html">
+                      <div class="bg2">
+                          <div class="intro-title">
+                              <p class="name">PREMIUM</p>
+                              <p class="money color-orange">29.9$ / mon</p>
+                          </div>
+                      </div>
+                      <ul class="intro-info">
+                          <li>종목 추천 서비스 제공</li>
+                          <li>차트 제공</li>
+                          <li>종목 저장기능 제공</li>
+                          <li>실시간 현재가 갱신</li>
+                          <li>PUSH 알림 서비스 제공</li>
+                          <li>일별 메일링 서비스</li>
+                      </ul>
+                  </a>
+              </li>
+          </ul>
+      </div>
+    </section>
+
+
+
+
+    <!-- include DOCBAR -->
+    <% include ./../inc/m_footer %>
+    <!-- //include DOCBAR -->
+
+
+    
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+<script type="text/javascript" src="/javascript/register.js"></script>
+
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ./../inc/m_header_reg %>
+    <!-- //include HEADER -->
+
+    <section class="box-wrap">
+        <div class="regist-wrap">
+            <form id="registerForm" method="POST" action='/m/user/register'>
+                <div class="tit_group">
+                    <h2 class="regist-title">회원가입 <span id="stepTxt" class="step">(1/2)</span></h2>
+                    <div class="regist-subtitle">회원가입에 필요한 정보를 입력해 주세요.</div>
+                </div>
+                <div class="reg_step_wrap">
+                    <div class="inner">
+                        <div id="regStep1" class="reg_step step1">
+                            <div class="group btn_type1">
+                                <label>이메일</label> 
+                                <input type="email" name="email" id="email" class="input-box wf65" placeholder="이메일을 입력해 주세요.">
+                                <a href="#" id="ckEmail" class="auth_btn wf30">중목체크</a>
+                            </div>
+                                
+                            <div class="group">
+                                <label>비밀번호</label> 
+                                <input type="password" maxlength="20" name="password" id="password1" class="input-box" placeholder="비밀번호(8~20자 이내)">
+                            </div>
+                            <div class="group">
+                                <label>비밀번호</label> 
+                                <input type="password" maxlength="20" id="password2" class="input-box" placeholder="비밀번호 재확인">
+                            </div>
+                            <div class="btn-box">
+                                <a href="#" id="btnNext" class="next-btn disable">다음</a>
+                            </div>
+                        </div>
+
+                        <div id="regStep2" class="reg_step step2">
+                            
+                            <div class="group">
+                                <label>이름</label> 
+                                <input type="text" name="name" id="name" class="input-box" placeholder="이름을 입력해 주세요.">
+                            </div>
+                                
+                            <div class="group">
+                                <label>생년월일</label> 
+                                <input type="text" maxlength="8" name="birth" id="birth" class="input-box" placeholder="ex)19990101">
+                            </div>
+                
+                            <div class="group btn_type1">
+                                <label>휴대폰번호</label> 
+                                <input type="text" maxlength="11" name="phoneNum" id="phoneNum" class="input-box wf60" placeholder="ex)01010002000">
+                                <a href="#" id="sendSecuNum" class="auth_btn wf35">인증번호전송</a>
+                            </div>
+
+                            <div class="group btn_type1">
+                                <label>인증번호</label> 
+                                <input type="text" maxlength="6" name="confirmNum" id="confirmNum" class="input-box wf50" placeholder="ex)123456">
+                                <a href="#" id="confirmSecuNum" class="auth_btn wf35">인증번호확인</a>
+                            </div>
+                        
+                            <div class="btn-box">
+                                <a href="#" id="btnBack" class="prev-btn">뒤로</a> 
+                                <a href="#" id="btnReg" class="final-btn disable">가입완료</a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+    
+<script>
+        
+        
+    $(document).ready(function(){
+          
+          
+
+          
+
+        $("#ckEmail").click(function(){
+            checkEmailReg();
+            return false;
+        });
+
+          $("#email").change(function(){
+            if( $("#ckEmail").hasClass("hide") ){
+              $("#ckEmail").removeClass("hide");
+              emailDoubleValiable = false;
+            }
+
+          })
+
+          $("#password1").keyup(function(){
+            // console.log($(this).val().length );
+            var msg = "";
+            var rFlag = false;
+            if($(this).val().length < 7){
+              msg = "비밀번호는 8자리 이상 입력해 주세요.";
+              rFlag = false;
+            }else{
+              msg = "사용가능한 비밀번호입니다.";
+              rFlag = true;
+              pw1Valiable = true;
+            }
+            
+            showFormResult("password1", msg, rFlag);
+            ableBtnCheck();
+          })
+
+          $("#password1").change(function(){
+            pw2Valiable = false;
+            $("#password2").val("");
+          });
+
+          $("#password2").keyup(function(){
+            // console.log($("#password1").val())
+            // console.log($("#password2").val())
+            var msg = "";
+            var rFlag = false;
+            if($("#password1").val() != $("#password2").val()){
+              msg = "동일한 비밀번호를 입력해 주세요";
+              rFlag = false;
+            }else{
+              msg = "비밀번호 확인이 완료 되었습니다";
+              rFlag = true;
+              pw2Valiable = true;
+            }
+            
+            showFormResult("password2", msg, rFlag);
+            ableBtnCheck();
+          })
+
+          $("#regStep1").find("input").focusout(function(){
+            ableBtnCheck();
+          })
+
+          $("#btnNext").click(function(){
+            console.log(emailValiable);
+            console.log(emailDoubleValiable);
+            console.log(pw1Valiable);
+            console.log(pw2Valiable);
+            
+            if( emailValiable && emailDoubleValiable && pw1Valiable && pw2Valiable && !$(this).hasClass("disable")){
+                panelChange();
+            }else{
+                alert("필요한 정보를 모두 입력해 주세요.");
+            }
+            return false;
+          })
+
+          $("#btnReg").click(function(){
+            console.log(nameValiable);
+            console.log(birthValiable);
+            console.log(telValiable);
+            console.log(telConfirmValiable);
+            
+            if( nameValiable && birthValiable && telValiable && telConfirmValiable && !$(this).hasClass("disable")){
+              $("#registerForm").submit();
+            }else{
+                alert("필요한 정보를 모두 입력해 주세요.");
+            }
+            return false;
+          })
+
+          $("#btnBack").click(function(){
+              panelChange();
+              return false;
+          })
+
+          $("#regHeadBack").click(function(){
+            
+            if(nowPanel == 1){
+                history.back();
+            }else{
+                panelChange();
+            }
+            return false;
+          })
+
+          $("#name").focusout(function(){
+            var msg = "";
+            var rFlag = false;
+            var regExp = /[A-Za-z0-9]/;
+
+            console.log($(this).val().length);
+              if( $(this).val() == ""){
+                var msg = "이름을 입력해 주세요";
+                var rFlag = false;
+                showFormResult("name", msg, rFlag);
+                nameValiable = false;
+              }else if( regExp.test( $(this).val() )){
+                var msg = "유효하기 않은 문자입니다.";
+                var rFlag = false;
+                showFormResult("name", msg, rFlag);
+                nameValiable = false;
+              }else{
+                var msg = "";
+                var rFlag = true;
+                showFormResult("name", msg, rFlag);
+                nameValiable = true;
+              }
+          })
+
+
+          $("#sendSecuNum").click(function(){
+            var num = $("#phoneNum").val();
+            var msg = "";
+            var rFlag = false;
+            if( isCellPhone(num) ){
+                var msg = "인증번호가 전송되었습니다.";
+                var rFlag = true;
+                showFormResult("phoneNum", msg, rFlag);
+                telValiable = true;
+            }else{
+              var msg = "유효하지 않은 번호입니다.";
+                var rFlag = false;
+                showFormResult("phoneNum", msg, rFlag);
+                telValiable = false;
+            }
+
+          })
+
+          $("#confirmSecuNum").click(function(){
+            var num = $("#confirmNum").val();
+            var msg = "";
+            var rFlag = false;
+            if(num == "000000"){
+              var msg = "인증 되었습니다.";
+              var rFlag = true;
+              showFormResult("confirmNum", msg, rFlag);
+              telConfirmValiable = true;
+            }else{
+              var msg = "정확한 인증번호를 입력해주세요.";
+              var rFlag = false;
+              showFormResult("confirmNum", msg, rFlag);
+              telConfirmValiable = false;
+            }
+            ableBtnCheck2();
+          });
+
+          $("#birth").change(function(){
+            var strVal = $(this).val();
+            isValidDate(strVal);
+          });
+
+          $("#regStep1").find("input").focusout(function(){
+            console.log("ableBtnCheck");
+            ableBtnCheck();
+          })
+          $("#regStep2").find("input").focusout(function(){
+            console.log("ableBtnCheck2");
+            ableBtnCheck2();
+          })
+          
+          init();
+
+
+
+
+
+
+
+
+
+          $("#registerBtn").click(function(){
+            $("#registerForm").submit();
+            return false;
+  
+          })
+        })
+      </script>
+
+</body>
+</html>
+
+
+
+
+
+

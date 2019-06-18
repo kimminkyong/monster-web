@@ -5,14 +5,17 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
-var auth = require('./auth');
+var auth = require('../admin/auth');
+var cfg = require('../../config/jwt_config');
+var jwt = require('jwt-simple');
+
 
 var validator = require('validator');
 var exValidator = require('express-validator');
 var sha256 = require('sha256');
 
 var mysql = require('mysql');
-var dbconfig = require('../config/database.js');
+var dbconfig = require('../../config/database.js');
 var connection = mysql.createConnection(dbconfig);
 
 /* GET home page. */
@@ -21,12 +24,60 @@ router.get('/login', function(req, res, next) {
     if(req.user){
         res.redirect('/');
     }else{
-        res.render('login', { title: 'LOGIN'});
+        res.render('admin/login', { title: 'LOGIN'});
     }
 
 
       
 });
+
+
+router.post('/login', function (req, res) {
+    auth.login(req, res);
+    // if (req.body.email && req.body.password) {
+    //     var email = req.body.email;
+    //     var password = req.body.password;
+    //     // var user = users.find(function (u) {
+    //     //     return u.phone === phone && u.password === password;
+    //     // });
+    //     connection.query('SELECT * FROM USERS WHERE `email`=?', [email], function(err, rows){
+    //         var user = rows[0];
+    //         console.log("query");
+    //         console.log(user);
+    //         if (user) {
+    //             var payload = {
+    //                 id: user.email,
+    //                 aud: 'localhost:3000',
+    //                 iss: 'localhost:3000'
+    //             };
+    //             console.log(payload)
+    //             var token = jwt.encode(payload, cfg.jwtSecret);
+    //             console.log(token);
+    //             token = 'JWT '+token;
+    //             //res.cookie('token',token);
+    //             //res.header('Authorization' , token);
+    //             //res.setHeader('Set-Cookie', 'token='+token+';Max-Age=21474836;Path=/;HttpOnly');
+    //             res.json({
+    //                 success: true,
+    //                 expires: new Date(),
+    //                 user: user._id,
+    //                 token: token
+    //             });
+
+    //         } else {
+    //             res.sendStatus(401);
+    //         }
+    //     });
+        
+    // } else {
+    //   res.sendStatus(401);
+    // }
+});
+
+router.get('/secret', function (req, res) {
+    console.log(req.header);
+    res.send(req.user);
+  });
 
 router.get('/logout', function(req, res, next) {
     console.log('logout');
@@ -40,7 +91,7 @@ router.get('/logout', function(req, res, next) {
 router.get('/wait', function(req, res, next) {
     console.log('wait');
 
-    res.render('wait', { 
+    res.render('admin/wait', { 
         title: 'WAIT'
     });
 
@@ -49,14 +100,14 @@ router.get('/wait', function(req, res, next) {
 
 router.get('/rigister', function(req, res, next) {
     console.log(req.user);
-    req.session.errors=[];
+    //req.session.errors=[];
     if(req.user){
         res.redirect('/');
     }else{
-        res.render('rigister', { 
+        res.render('admin/rigister', { 
             title: 'RIGISTER',
             success:false,
-            errors:req.session.errors
+            errors:""
         });
     }
 
@@ -90,7 +141,7 @@ router.post('/rigister', function(req, res, next) {
                 console.log("동일한 이메일 있음");
                 res.redirect('/member/rigister');
             }else{
-                var nowdate = new Date(Date.now()).toLocaleString();
+                var nowdate = new Date(Date.now()).toISOString().replace(/T/, ' ').replace(/\..+/, '');
                 var email = req.body.email;
                 //email = email.replace("@",".dot.");
                 var pw = sha256( req.body.password + req.body.email );

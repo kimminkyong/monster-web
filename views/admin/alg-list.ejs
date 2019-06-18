@@ -37,11 +37,11 @@
         <div class="main_container">
             
             <!-- include LNB -->
-            <% include ./inc/lnb %>
+            <% include ./../inc/lnb %>
             <!-- //include LNB -->
     
             <!-- top navigation -->
-            <% include ./inc/header %>
+            <% include ./../inc/header %>
             <!-- /top navigation -->
     
             <!-- page content -->
@@ -141,14 +141,14 @@
                                     
                                 %>                     
                                     <tr>
-                                        <td><a href="/alg-list/detail-view/<%= item.code %>"><%= item.name %><br class="visible-xs-block">(<%= item.code %>)</a></td>
+                                        <td><a href="/admin/alg-list/detail-view/<%= item.code %>"><%= item.name %><br class="visible-xs-block">(<%= item.code %>)</a></td>
                                         <td class="text-center"><div class="icon-<%= item.alg_step %>"><%= item.alg_step %></div></td>
                                         <td class="text-right"><%= tv %><br class="visible-xs-block">(<span class="blue"><%= per_volum %>배</span>)</td>
                                         <td class="text-right"><%= v60 %></td>
                                         <td class="text-right"><%= base_p %><br class="visible-xs-block">(<span class="red"><%= item.change_per %>%</span>)</td>
                                         <td class="text-right"><%= max_p %><br class="visible-xs-block">(<span class='<%=c_class%>'><%=grow_mark%><%=grow_val%></span>)</td>
                                         <td class="text-right"><%= min_p %><br class="visible-xs-block">(<span class='<%=l_class%>'><%=low_mark%><%=low_val%></span>)</td>
-                                        <td class="text-center"><a href="/alg-list/tracking-view/<%= item.code %>/<%= listDate %>"><i class="fa fa-bars"></i> <span class="visible-lg-inline">Tracking</span></a></td>
+                                        <td class="text-center"><a href="/admin/alg-list/tracking-view/<%= item.code %>/<%= listDate %>"><i class="fa fa-bars"></i> <span class="visible-lg-inline">Tracking</span></a></td>
                                     </tr>
                                 <% }); %>
                                 
@@ -171,7 +171,7 @@
             <!-- /page content -->
 
             <!-- footer content -->
-            <% include ./inc/footer %>
+            <% include ./../inc/footer %>
             <!-- /footer content -->
         </div>
     </div>
