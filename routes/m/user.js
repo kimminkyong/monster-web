@@ -103,6 +103,7 @@ router.post('/find', function(req,res,next){
 })
 
 router.post('/sendMail', function(req,res,next){
+    var req_email = req.body.email;
     var transporter = nodemailer.createTransport({
         service:'gmail',
         auth: {
@@ -113,8 +114,8 @@ router.post('/sendMail', function(req,res,next){
     
     var mailOption = {
         from : 'mk2monster1572@gmail.com',
-        to : 'kmk1572@gmail.com',
-        subject : 'nodemailer test',
+        to : req_email,
+        subject : 'STOCKZINE 비밀번호 변경 메일입니다.',
         text : 'Hello'
     };
     
