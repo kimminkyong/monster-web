@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+<script> 
+    isMain = true;
+</script> 
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ../../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section class="box-wrap">
+      <div class="intro-wrap">
+          <ul class="intro" id="algListWrap">
+            <% for(var i = 0; i < dataList.length; i++){
+                var inDom  = dataList[i].dc_text.split("|");
+                var code = dataList[i].code;
+                var name = dataList[i].name;
+                var sub_name = dataList[i].sub_name;
+            %>
+                <li>
+                    <a href='/m/subscribe/daily_list?prd=<%= code %>'>
+                        <div class='cls<%= code %>'>
+                            <div class='intro-title'>
+                                <p class='name'><%= name %></p>
+                                <p class='money color-orange'><%= sub_name %></p>
+                            </div>
+                        </div>
+                        <ul class='intro-info'>
+                        <% for(var j = 0; j < inDom.length; j++){ %>
+                            <li><%= inDom[j] %></li>
+                        <%}%>
+                        </ul>
+                    </a>
+                </li>
+            <% } %> 
+          </ul>
+      </div>
+    </section>
+
+
+
+
+    <!-- include DOCBAR -->
+    <% include ../../inc/m_footer %>
+    <!-- //include DOCBAR -->
+
+<script>
+    $(document).ready(function(){
+        
+    })
+</script>
+    
+</body>
+</html>

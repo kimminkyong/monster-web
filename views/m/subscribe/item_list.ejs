@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ../../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section class="list-picker-wrap">
+        <div class="list-picker color-orange">5.21<span class="day-name">(Tue)</span></div>
+        <div class="list-picker-subtitle">총 <span class="color-orange">22개</span>의 종목이 발굴되었습니다.</div>
+    </section>
+
+    <section class="box-wrap">
+        <div class="product-wrap">
+
+                <% rowList.forEach( (item) => { 
+                    function AddComma(data_value) {
+                        return Number(data_value).toLocaleString('en').split(".")[0];
+                        }
+                    var tv = AddComma(item.today_volume);
+                    var v30 = AddComma(item.avr30_volume);
+                    var v60 = AddComma(item.avr60_volume);
+                    var max_p = AddComma(item.max_price);
+                    var min_p = AddComma(item.min_price);
+                    var base_p = AddComma(item.base_price);
+                    var per_volum = (item.today_volume / item.avr60_volume ).toFixed(0);
+                    
+                    if(item.base_price == null ){
+                        var grow_val = 0;
+                        var c_class = "blue_c";
+                        var grow_mark = "▼";
+                        
+                        var low_val = 0;
+                        var l_class = "blue_c";
+                        var low_mark = "▼";
+                    }else{
+                        var grow_val = ((Math.abs(item.max_price-item.base_price)/item.base_price)*100).toFixed(2);
+                        var c_class = (item.max_price > item.base_price) ? "red_c" : "blue_c";
+                        var grow_mark = (item.max_price > item.base_price) ? "▲" : "▼";
+
+                        var low_val = ((Math.abs(item.min_price-item.base_price)/item.base_price)*100).toFixed(2);
+                        var l_class = (item.min_price > item.base_price) ? "red_c" : "blue_c";
+                        var low_mark = (item.min_price > item.base_price) ? "▲" : "▼";
+                    }
+                    
+                %>                     
+                    <!-- <tr>
+                        <td><a href="/admin/alg-list/detail-view/<%= item.code %>"><%= item.name %><br class="visible-xs-block">(<%= item.code %>)</a></td>
+                        <td class="text-center"><div class="icon-<%= item.alg_step %>"><%= item.alg_step %></div></td>
+                        <td class="text-right"><%= tv %><br class="visible-xs-block">(<span class="blue"><%= per_volum %>배</span>)</td>
+                        <td class="text-right"><%= v60 %></td>
+                        <td class="text-right"><%= base_p %><br class="visible-xs-block">(<span class="red"><%= item.change_per %>%</span>)</td>
+                        <td class="text-right"><%= max_p %><br class="visible-xs-block">(<span class='<%=c_class%>'><%=grow_mark%><%=grow_val%></span>)</td>
+                        <td class="text-right"><%= min_p %><br class="visible-xs-block">(<span class='<%=l_class%>'><%=low_mark%><%=low_val%></span>)</td>
+                        <td class="text-center"><a href="/admin/alg-list/tracking-view/<%= item.code %>/<%= listDate %>"><i class="fa fa-bars"></i> <span class="visible-lg-inline">Tracking</span></a></td>
+                    </tr> -->
+
+
+
+                    <div class="product-name">
+                        <%= item.name %><span class="product-num"><%= item.code %></span>
+                        <span class="product-dday">D+10</span>
+                        <span class="heart-box">
+                            <span class="heart-no"></span>
+                        </span>
+                    </div>
+                    <div class="product-detail">
+                        <ul class="product-table">
+                            <li>
+                                <p class="product-title">SAVE <span class="product-date">10.11</span></p>
+                                <p class="product-price"><%= base_p %></p>
+                                <p class="product-percent"><%= item.change_per %>%</p>
+                            </li>
+                            <li>
+                                <p class="product-title">MAX <span class="product-date">10.12</span></p>
+                                <p class="product-price"><%= max_p %></p>
+                                <p class="product-percent"><%=grow_val%></p>
+                            </li>
+                            <li>
+                                <p class="product-title">TODAY <span class="product-date">10.16</span></p>
+                                <p class="product-price color-orange">2,680,000</p>
+                                <p class="product-percent color-orange">11%</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="util-wrap">
+                        <div class="product-util">
+                            <ul class="product-table">
+                                <li>
+                                    <p class="icon-chart">차트보기</p>
+                                </li>
+                                <li>
+                                    <p class="icon-talk">종목토론</p>
+                                </li>
+                                <li>
+                                    <p class="icon-follow">Follow 120</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>        
+                    
+
+
+
+
+                <% }); %>
+
+                
+
+
+
+
+
+        </div>
+    </section>
+
+    
+</body>
+</html>

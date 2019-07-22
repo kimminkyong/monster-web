@@ -1,0 +1,20 @@
+{"algorithm":[
+    {
+        "name":"STANDARD",
+        "sub_name":"스톡진 알고리즘1",
+        "link":"/m/product/daily-list?prd=000010",
+        "desc_link":"/m/product/prd_view?prd=000010",
+        "price":"월 99,000원",
+        "img":"bg1",
+        "desc":"종목 추천 서비스 제공111|차트 제공|종목 저장기능 제공"
+    }
+    ,{
+        "name":"PREMIUM",
+        "sub_name":"스톡진 알고리즘2",
+        "link":"/m/product/daily-list?prd=000020",
+        "desc_link":"/m/product/prd_view?prd=000020",
+        "price":"월 79,000원",
+        "img":"bg2",
+        "desc":"종목 추천 서비스 제공22|차트 제공|종목 저장기능 제공|실시간 현재가 갱신|PUSH 알림 서비스 제공|일별 메일링 서비스|테스트"
+    }
+]}

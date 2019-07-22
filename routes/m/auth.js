@@ -137,6 +137,81 @@ exports.check = (req, res, next) => {
   
 }
 
+
+exports.buyingAlgCheck = (req, res, next) => {
+  var token = req.cookies.token;
+  var prd = req.query.prd;
+  console.log("buyingAlgCheck");
+  console.log(token);
+  console.log(prd);
+  if(token){
+      jwt.verify(token, cfg.jwtSecret, function(err, decoded) {
+          if(err) {
+              console.log(err);
+              //res.redirect('/member/login');
+          }else{
+              console.log(decoded.email);
+              req.user = decoded;
+
+              connection.query('SELECT * FROM BUYING_ALGORITHM WHERE `EMAIL`=? AND `NO`=?', [req.user.email, prd], function(err, rows){
+                  console.log(rows[0]);
+                  if(rows[0]){
+                      console.log("구매이력 있음");
+                      next();
+                  }else{
+                      console.log("구매이력 없음")
+                      res.redirect('/m/product/alg-buy?prd='+prd);
+                  }
+              });
+              
+          }
+      });
+  }else{
+      res.send(
+          "<script type='text/javascript'>alert('사용자 정보가 존재하지 않습니다.');</script>"
+      );
+      res.redirect('/m/user/login');
+  }
+
+
+  // var email = req.body.email;
+  // var password = req.body.password;
+  // var secret = cfg.jwtSecret;
+
+  // connection.query('SELECT * FROM USERS WHERE `email`=?', [email], function(err, rows){
+  //   var user = rows[0];
+  //   console.log(user);
+
+  //   if( typeof(user) == "undefined" ){
+  //     res.send(
+  //       "<script type='text/javascript'>alert('사용자가 존재하지 않습니다');history.back();</script>"
+  //     );
+  //   }else{
+  //     var pw = sha256( password + email );
+
+  //     if(user.password === pw ){
+  //       var token = jwt.sign({
+  //         email: user.email,
+  //         nick: user.nick
+  //       }, secret, { expiresIn: '6h', issuer: 'monster.com', subject: 'userToken'}
+  //       );
+  //       console.log(token);
+  //       res.cookie('token', token, { expires: new Date(Date.now() + (900000*6)), httpOnly: true });
+  //       next();
+  //     }else{
+  //       res.send(
+  //         "<script type='text/javascript'>alert('비밀번호가 일치하지 않습니다');history.back();</script>"
+  //       )
+  //     }
+  //   }
+    
+            
+            
+            
+  // });
+
+}
+
 exports.logout = (req, res, next) => {
   res.clearCookie("token");
   next();

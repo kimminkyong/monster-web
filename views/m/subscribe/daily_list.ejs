@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ../../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section class="picker-wrap">
+        <div class="picker-date">
+            <p class="picker-month"><%= thisYear %></p>
+            <p class="picker-day color-orange"><%= thisMonth %></p>
+            <p class="picker-month-sum">총 <span class="color-orange"><%= thisTotal %>개</span>의 추천종목이 발굴되었습니다.</p>
+        </div>
+        <div class="">
+            <ul class="picker-list">
+                <% dailyList.forEach( (item, index, array) => { 
+                    
+                    function rtDayofweek(date){
+                        var week = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+                        var dayOfWeek = week[new Date(date).getDay()];
+                        return dayOfWeek
+                    }
+
+                    function todayCheck(date){
+                        var r_month =  new Date().getMonth()+1;
+                        var r_year = new Date().getFullYear();
+                        var r_day = new Date().getDay();
+                        var makeDate = r_year+"-"+r_month+"-"+r_day;
+                        if(date == makeDate){return true}else{return false}
+                    }
+                    
+                    console.log(array[0].date);
+                    var c_date = item.date.split("-");
+                    console.log(c_date);
+                    var c_week = rtDayofweek(item.date);
+                    var c_cname = (todayCheck(item.date)) ? "on":"";
+                    %>
+                    <li class="<%=c_cname%>">
+                        <a href="/m/product/item-list?date=<%= item.date %>">
+                            <div class="picker-list-day">
+                                <%= c_date[2] %><br><span class="picker-list-eng"><%= c_week %></span>
+                            </div>
+                            <div class="picker-list-cont">
+                                
+                                <strong><%= item.step1 %>개</strong>의 종목이 발굴되었습니다.
+                            </div>
+                        </a>
+                    </li>
+                <% }); %> 
+
+
+                
+            </ul>
+        </div>          
+    </section>
+
+        <!-- include DOCBAR -->
+    <% include ../../inc/m_footer %>
+    <!-- //include DOCBAR -->
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<link href="/stylesheets/base.css" rel="stylesheet">
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+
+
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ../../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section id="loadTemp" class="info-wrap">
+        
+    </section>
+
+    <div class="dock-buy">
+        <ul>
+            <li><a href="#" class="dock-sns">공유</a></li>
+            <li><a href="/m/prodoct/prd_buy" class="dock-pay" id="productBuyButton">구독신청</a></li>
+        </ul>
+    </div>
+
+    <form id="productBuyDo" action="/m/product/prd_buy" method="POST">
+
+        <input type="hidden" name="email" value="<%= user.email %>" >
+        <input type="hidden" name="prd_no" value="<%= prd_number %>" >
+    </form>
+
+<script>
+    $("#productBuyButton").click(function(){
+        $("#productBuyDo").submit();
+        return false;
+    })
+
+    var prd_code = "<%= prd_number %>";
+    $(document).ready(function(){
+        $.ajax({
+			async: true,
+			type : 'GET',
+			data : '',
+			url : "/template/prd_"+prd_code+".ejs",
+			dataType : "text",
+			success : function(data) {
+                $("#loadTemp").append(data);
+			},
+			error : function(error) {
+				
+			}
+	});
+
+    })
+</script>
+    
+</body>
+</html>

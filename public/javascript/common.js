@@ -2,30 +2,55 @@ function AddComma(data_value) {
     return Number(data_value).toLocaleString('en').split(".")[0];    
 }
 
+var isMain = false;
+
+function initHeaderMenu(){
+    //alert(isMain);
+    if(isMain){
+        $("#headerMenuBtn").removeClass("icon-back").addClass("icon-menu");
+    }
+    
+
+}
+
+function findDocbarIndex(){
+    if( $("#dock").hasClass("main") ){
+        return 0;
+    }else if( $("#dock").hasClass("product") ){
+        return 1;
+    }else if( $("#dock").hasClass("subscribe") ){
+        return 2;
+    }else if( $("#dock").hasClass("favorite") ){
+        return 3;
+    }
+}
+
+function docbarSet(){
+    var docbarIdx = findDocbarIndex();
+    $("#dock").find("li > a").removeClass("on");
+    if(docbarIdx){
+        $("#dock").find("li").eq(docbarIdx).children("a").addClass("on");
+    }else{
+        $("#dock").find("li").eq(0).children("a").addClass("on");
+    }
+
+}
 
 $(document).ready(function(){
+    initHeaderMenu();//헤더 메뉴 or 뒤로가기 셋팅
 
-    // $("a.panel_link").click(function(){
-    //     // var targetLink = $(this).attr("data");
-    //     // var target=$(".box-wrap");
-    //     // var param_h = $(window).height();
-    //     // var fakePanel = "<div class='fake_panel' style='positon:absolute;top:0px;width:0px;height:"+param_h+"px'></div>";
-    //     // target.append(fakePanel);
-    //     // target.find(".fake_panel").css({"display":"block","right":"0px"}).animate({"width":"100%"}, 200, function(){
-    //     //     setTimeout(function(){target.find(".fake_panel").remove()}, 500);
-    //     //     location.href = targetLink;
-    //     // });
+    $("#headerMenuBtn").on("click", function(){
+        if( $(this).hasClass("icon-back") ){
+            history.back();
+        }else{
+            console.log("menu open");
+        }
+        return false;
+    });
+
+    docbarSet();
 
 
-
-    //     var targetLink = $(this).attr("data");
-    //     $(".box-wrap").animate({"left":"-100%"}, 200, function(){
-    //         setTimeout(function(){ $(".box-wrap").css({"left":"0px"}); }, 500);
-    //         location.href = targetLink;
-    //     })
-    //     return false;
-
-    // });
 })
 
 
