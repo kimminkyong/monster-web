@@ -90,7 +90,7 @@ header .icon-setting {position:absolute; top:12px; right:12px; background:url('/
 .color-orange {color:#ff6b35 !important;}
 
 /* Product List */
-.product-wrap {position:relative; padding:0; margin:10px 0 20px; background:#fff; border-radius: 2px; box-shadow: 0px 1px 8px #d9d9d9;}
+.product-wrap {overflow:hidden;position:relative; padding:0; margin:10px 0 20px; background:#fff; border-radius: 2px; box-shadow: 0px 1px 8px #d9d9d9;}
 .product-wrap:after {display: block; clear: both; content: ''}
 
 .product-wrap .product-name{padding:12px; position:relative; font-size:20px; line-height:28px; padding-bottom:6px; font-weight:700;}
@@ -102,9 +102,9 @@ header .icon-setting {position:absolute; top:12px; right:12px; background:url('/
 .product-wrap .product-util .product-table:after {display: block; clear: both; content: ''}
 .product-wrap .product-util .product-table {font-size:14px;}
 .product-wrap .product-util .product-table li {float:left; position:relative; width:33.3%}
-.product-wrap .product-util .product-table .icon-chart {padding-left:18px; color:#666; background:url('/images/bg/icon_chart.png') no-repeat 0 2px; background-size:14px 12px;}
-.product-wrap .product-util .product-table .icon-talk {padding-left:17px; color:#666; background:url('/images/bg/icon_talk.png') no-repeat 0 2px; background-size:13px 12px;}
-.product-wrap .product-util .product-table .icon-follow {color:#666;}
+.product-wrap .product-util .product-table .icon-chart {display:block;padding-left:18px; color:#666; background:url('/images/bg/icon_chart.png') no-repeat 0 2px; background-size:14px 12px;}
+.product-wrap .product-util .product-table .icon-talk {display:block;padding-left:17px; color:#666; background:url('/images/bg/icon_talk.png') no-repeat 0 2px; background-size:13px 12px;}
+.product-wrap .product-util .product-table .icon-follow {color:#666;display:block;}
 
 .product-wrap .product-detail {padding:8px 12px 8px;}
 .product-wrap .product-detail:after {display: block; clear: both; content: ''}
@@ -371,6 +371,23 @@ header .icon-setting {position:absolute; top:12px; right:12px; background:url('/
          -o-transform-origin: 0 100%;
             transform-origin: 0 100%;
 }
+
+.icon-follow.ing .heart-no:before,
+.icon-follow.ing .heart-no:after{
+    width: 10px;
+    height: 18px;
+    background: #6f7b89;
+    left:7px;
+
+}
+
+.icon-follow.on .heart-no:before,
+.icon-follow.on .heart-no:after{
+
+    background: #fc5a1f;
+
+}
+
 .heart-no:after{
     left: 0;
     -webkit-transform: rotate(45deg);
@@ -384,7 +401,7 @@ header .icon-setting {position:absolute; top:12px; right:12px; background:url('/
          -o-transform-origin: 100% 100%;
             transform-origin :100% 100%;
 }
-
+.icon-follow.ing .heart-no:after{left:-1px;}
 .heart{
     position: relative;
     width: 30px;

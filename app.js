@@ -33,6 +33,7 @@ var mUserRouter = require('./routes/m/user');
 var mProduct = require('./routes/m/product');
 var mSubscribe = require('./routes/m/subscribe');
 var mMypage = require('./routes/m/mypage');
+var mNotice = require('./routes/m/notice');
 var mFavorite = require('./routes/m/favorite');
 var sha256 = require('sha256');
 
@@ -80,6 +81,7 @@ app.use('/m/user', mUserRouter);
 app.use('/m/product', mProduct);
 app.use('/m/subscribe', mSubscribe);
 app.use('/m/mypage', mMypage);
+app.use('/m/notice', mNotice);
 app.use('/m/favorite', mFavorite);
 
 console.log('init');

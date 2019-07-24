@@ -30,11 +30,12 @@ function getProductMyList(req, res, next){
     var buyListArray = req.buyList.map(function(el){return el.NO});
     console.log(buyListArray);
 
-    var findQuery='SELECT * FROM ALGORITHM_LIST WHERE `code` IN ("'+buyListArray+'") ';
+    var findQuery='SELECT * FROM ALGORITHM_LIST WHERE `code` IN ('+buyListArray+') ';
     console.log(findQuery);
     connection.query(findQuery, function(err, rows){
         if(err) throw err;
         if(rows){ req.prdList = rows; }
+        console.log(req.prdList)
         next();
     });
 }
@@ -79,7 +80,7 @@ function getDailyList(req, res, next){
         req.sumItem = rows[0].total;
     }); 
 
-    connection.query('SELECT date, `'+queryColumn+'` from `'+algorithmName+'` WHERE date BETWEEN "'+startDate+'" AND "'+endDate+'" ORDER BY date DESC', function(err, rows) {
+    connection.query('SELECT date, `'+queryColumn+'` as fcount from `'+algorithmName+'` WHERE date BETWEEN "'+startDate+'" AND "'+endDate+'" ORDER BY date DESC', function(err, rows) {
         if(err) throw err;
         req.dailyList = rows;
         console.log(rows);
@@ -93,6 +94,7 @@ router.get("/daily_list", auth.check, getAlgorithmName, getDailyList, function(r
         title: 'DAILY-LIST',
         docCate : docbarCate,
         dailyList : req.dailyList,
+        thisAlgCode : req.query.prd,
         thisYear : req.thisYear,
         thisMonth : req.thisMonth,
         thisTotal : req.sumItem
@@ -100,44 +102,30 @@ router.get("/daily_list", auth.check, getAlgorithmName, getDailyList, function(r
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 종목별 리스트 */
+/************************************ 종목별 리스트 ************************************/
 function findStep2ItemLength(req, res, next){
+    var prdCode = req.query.prd;
+    
+    var algCode = (prdCode == "000010") ? "step1" :"step2";
     var dateParam = req.query.date;
-    var s2Length='SELECT count(*) as total from MA01 WHERE date="'+dateParam+'" and alg_step="step2"';
+    var s2Length='SELECT count(*) as total from MA01 WHERE date="'+dateParam+'" and alg_step="'+algCode+'" ';
     connection.query(s2Length, function(err, rows) {
         if(err) throw err;
         req.step2Length = rows[0].total;
-        next()
+        next();
     });
 }
 
 
 function itemDetailList(req, res, next){
     var dateParam = req.query.date;
-    var qs='SELECT * from MA01 JOIN TOTAL_STOCK_CODE ON MA01.code = TOTAL_STOCK_CODE.code WHERE MA01.date="'+dateParam+'"';
+    var userEmail = req.user.email;
+    var qs='SELECT m.*, t.name, n.date as today_date, n.close as today_close, n.change_per as today_per, f.add_date as favorite_add_date from MA01 m JOIN TOTAL_STOCK_CODE t ON m.code = t.code JOIN today_stock_info n ON n.code = m.code LEFT OUTER JOIN FAVORITE_LIST f ON m.code=f.code AND m.date=f.find_date AND f.email="'+userEmail+'" WHERE m.date="'+dateParam+'"';
     connection.query(qs, function(err, rows) {
         if(err) throw err;
         req.step1Length = rows.length;
         req.rowList = rows;
+        console.log(req.rowList);
         next();
     });
 }
@@ -149,13 +137,30 @@ function itemList_PageRender(req, res){
         docCate : docbarCate,
         user:req.user,
         rowList : req.rowList,
+        thisDate : req.query.date,
         listDate : req.query.date, 
         step1_length: req.step1Length,
         step2_length: req.step2Length
     });
 }
 
-router.get("/item-list", auth.check, findStep2ItemLength, itemDetailList, itemList_PageRender);
+router.get("/item_list", auth.check, findStep2ItemLength, itemDetailList, itemList_PageRender);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

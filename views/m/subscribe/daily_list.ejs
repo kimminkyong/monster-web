@@ -22,9 +22,10 @@
     <section class="picker-wrap">
         <div class="picker-date">
             <p class="picker-month"><%= thisYear %></p>
-            <p class="picker-day color-orange"><%= thisMonth %></p>
-            <p class="picker-month-sum">총 <span class="color-orange"><%= thisTotal %>개</span>의 추천종목이 발굴되었습니다.</p>
+            <p class="picker-day"><%= thisMonth %></p>
+            <p class="picker-month-sum">총 <span class="color-blue"><%= thisTotal %>개</span>의 추천종목이 발굴되었습니다.</p>
         </div>
+
         <div class="">
             <ul class="picker-list">
                 <% dailyList.forEach( (item, index, array) => { 
@@ -50,13 +51,14 @@
                     var c_cname = (todayCheck(item.date)) ? "on":"";
                     %>
                     <li class="<%=c_cname%>">
-                        <a href="/m/product/item-list?date=<%= item.date %>">
+                        <a href="/m/subscribe/item_list?prd=<%= thisAlgCode %>&date=<%= item.date %>">
                             <div class="picker-list-day">
                                 <%= c_date[2] %><br><span class="picker-list-eng"><%= c_week %></span>
                             </div>
                             <div class="picker-list-cont">
                                 
-                                <strong><%= item.step1 %>개</strong>의 종목이 발굴되었습니다.
+                                <strong><%= item.fcount %>개</strong>의 종목이 발굴되었습니다.
+                                
                             </div>
                         </a>
                     </li>
