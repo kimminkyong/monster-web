@@ -10,10 +10,10 @@ var connection = mysql.createConnection(dbconfig);
 var docbarCate = "main";
 /* GET */
 router.get("/", auth.check, function(req, res) {
-    console.log("mobile main");
     console.log(req.user);
     res.render('m/main', { 
         title: 'MAIN',
+        user : req.user,
         docCate : docbarCate
      });
     

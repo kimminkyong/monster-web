@@ -482,7 +482,9 @@ header .icon-setting {position:absolute; top:12px; right:12px; background:url('/
 .intro li .cls000020 {position:relative; height:220px; background:url('/images/bg/bg_12.png') no-repeat center center; background-size:120%;}
 
 
-
+/* font color */
+.blue_c{color:#1b70f0;}
+.red_c{color:#ff0000;}
 
 
 

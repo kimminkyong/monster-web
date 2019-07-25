@@ -25,6 +25,7 @@ function findDocbarIndex(){
     }else if( $("#dock").hasClass("notice") ){
         return 4;
     }
+    //return false;
 }
 
 function getToday(){
@@ -40,10 +41,10 @@ function getToday(){
 function docbarSet(){
     var docbarIdx = findDocbarIndex();
     $("#dock").find("li > a").removeClass("on");
-    if(docbarIdx){
+    if(docbarIdx >= 0){
         $("#dock").find("li").eq(docbarIdx).children("a").addClass("on");
     }else{
-        $("#dock").find("li").eq(0).children("a").addClass("on");
+        //$("#dock").find("li").eq(0).children("a").addClass("on");
     }
 
 }

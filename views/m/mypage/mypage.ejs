@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title %></title>
+
+<script type="text/javascript" src="/javascript/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/javascript/common.js"></script>
+<!-- Style -->
+<link href="/stylesheets/base.css" rel="stylesheet">
+
+<script> 
+    isMain = true;
+</script> 
+</head> 
+<body>
+    <!-- include HEADER -->
+    <% include ../../inc/m_header %>
+    <!-- //include HEADER -->
+
+    <section class="mypage-wrap">
+        <div class="mypage-top">
+            <p class="mypage-picture"></p>
+            <p class="mypage-id"><%= user.nick%></p>
+        </div>
+        <div>
+            <ul class="my-menu">
+                <li><a href="#">나의 정보</a></li>
+                <li><a href="#">구독정보</a></li>
+                <li><a href="#">결제이력</a></li>
+                <li><a href="#">설정</a></li>
+    
+    
+            </ul>
+        </div>
+    </section>
+
+
+
+
+    <!-- include DOCBAR -->
+    <% include ../../inc/m_footer %>
+    <!-- //include DOCBAR -->
+
+<script>
+    $(document).ready(function(){
+        
+    })
+</script>
+    
+</body>
+</html>

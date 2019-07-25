@@ -64,11 +64,13 @@
                     var base_p = AddComma(item.base_price);
                     var per_volum = (item.today_volume / item.avr60_volume ).toFixed(0);
                     var shotDate = getShotDate(item.date);
+                    var maxShotDate = (item.max_date != "") ? getShotDate(item.max_date) : "";
                     var todayClose = AddComma(item.today_close);
                     var todayShotDate = getShotDate(item.today_date) 
                     var fa = (item.favorite_add_date) ? "on" : "";
-                    
-                    
+                    var todayPer = (item.today_per.indexOf("-") > -1) ? item.today_per.replace("-","") :item.today_per ;
+                    var todayPerMark = (item.today_per.indexOf("-") > -1) ? "▼" : "▲";
+                    var t_class = (item.today_per.indexOf("-") > -1) ?  "blue_c" : "red_c";
                     
                     if(item.base_price == null ){
                         var grow_val = 0;
@@ -79,13 +81,24 @@
                         var l_class = "blue_c";
                         var low_mark = "▼";
                     }else{
-                        var grow_val = ((Math.abs(item.max_price-item.base_price)/item.base_price)*100).toFixed(2);
-                        var c_class = (item.max_price > item.base_price) ? "red_c" : "blue_c";
-                        var grow_mark = (item.max_price > item.base_price) ? "▲" : "▼";
+                        if(item.date == item.max_date ){
+                            var grow_val = "-";
+                            var c_class = "";
+                            var grow_mark = "";
 
-                        var low_val = ((Math.abs(item.min_price-item.base_price)/item.base_price)*100).toFixed(2);
-                        var l_class = (item.min_price > item.base_price) ? "red_c" : "blue_c";
-                        var low_mark = (item.min_price > item.base_price) ? "▲" : "▼";
+                            var low_val = "-";
+                            var l_class = "";
+                            var low_mark = "";
+                        }else{
+                            var grow_val = ((Math.abs(item.max_price-item.base_price)/item.base_price)*100).toFixed(2);
+                            var c_class = (item.max_price > item.base_price) ? "gap_up" : "gap_down";
+                            var grow_mark = (item.max_price > item.base_price) ? "▲" : "▼";
+
+                            var low_val = ((Math.abs(item.min_price-item.base_price)/item.base_price)*100).toFixed(2);
+                            var l_class = (item.min_price > item.base_price) ? "red_c" : "blue_c";
+                            var low_mark = (item.min_price > item.base_price) ? "▲" : "▼";
+                        }
+                        
                     }
                     
                 %>                     
@@ -108,11 +121,11 @@
                             </li>
                             <li class="max">
                                 <div class="product-fl">
-                                    <p class="product-title">최고가 <!--<span class="product-date">10.12</span>--></p>
+                                    <p class="product-title">최고가 <span class="product-date"><%= maxShotDate %></span></p>
                                 </div>
                                 <div class="product-fr">
-                                    <p class="product-price gap_up"><%= max_p %></p>
-                                    <p class="product-percent gap_up"><span class="gap"><%= grow_mark %></span><%= grow_val %>%</p>
+                                    <p class="product-price <%=c_class%>"><%= max_p %></p>
+                                    <p class="product-percent <%=c_class%>"><span class="gap"><%= grow_mark %></span><%= grow_val %>%</p>
                                 </div>
                             </li>
                             <li class="now">
@@ -120,8 +133,8 @@
                                     <p class="product-title">현재가 <span class="product-date"><%= todayShotDate %></span></p>
                                 </div>
                                 <div class="product-fr">
-                                    <p class="product-price"><%= todayClose %></p>
-                                    <p class="product-percent"><span class="gap">▲</span><%= item.today_per %>%</p>
+                                    <p class="product-price <%= t_class %>"><%= todayClose %></p>
+                                    <p class="product-percent <%= t_class %>"><span class="gap"> <%= todayPerMark %></span><%= todayPer %>%</p>
                                 </div>
                             </li>
                         </ul>

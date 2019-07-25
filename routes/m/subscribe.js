@@ -120,7 +120,10 @@ function findStep2ItemLength(req, res, next){
 function itemDetailList(req, res, next){
     var dateParam = req.query.date;
     var userEmail = req.user.email;
-    var qs='SELECT m.*, t.name, n.date as today_date, n.close as today_close, n.change_per as today_per, f.add_date as favorite_add_date from MA01 m JOIN TOTAL_STOCK_CODE t ON m.code = t.code JOIN today_stock_info n ON n.code = m.code LEFT OUTER JOIN FAVORITE_LIST f ON m.code=f.code AND m.date=f.find_date AND f.email="'+userEmail+'" WHERE m.date="'+dateParam+'"';
+    var prdCode = req.query.prd;
+    var algCode = (prdCode == "000010") ? "step1" :"step2";
+
+    var qs='SELECT m.*, t.name, n.date as today_date, n.close as today_close, n.change_per as today_per, f.add_date as favorite_add_date from MA01 m JOIN TOTAL_STOCK_CODE t ON m.code = t.code JOIN today_stock_info n ON n.code = m.code LEFT OUTER JOIN FAVORITE_LIST f ON m.code=f.code AND m.date=f.find_date AND f.email="'+userEmail+'" WHERE m.date="'+dateParam+'" AND m.alg_step="'+algCode+'"';
     connection.query(qs, function(err, rows) {
         if(err) throw err;
         req.step1Length = rows.length;
