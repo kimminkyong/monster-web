@@ -19,6 +19,7 @@ var dbconfig = require('../../config/database.js');
 var connection = mysql.createConnection(dbconfig);
 
 var nodemailer = require('nodemailer');
+var sendmail = require('sendmail')();
 
 /* GET home page. */
 router.get('/login', function(req, res, next) {
@@ -104,28 +105,43 @@ router.post('/find', function(req,res,next){
 
 router.post('/sendMail', function(req,res,next){
     var req_email = req.body.email;
-    var transporter = nodemailer.createTransport({
-        service:'gmail',
-        auth: {
-            user : 'mk2monster1572@gmail.com',
-            pass : 'kmk9972026324'
-        }
-    });
+    // var transporter = nodemailer.createTransport({
+    //     service:'gmail',
+    //     auth: {
+    //         user : 'mk2monster1572@gmail.com',
+    //         pass : 'kmk9972026324'
+    //     }
+    // });
+
+    // var transporter = nodemailer.createTransport("SMTP", {
+    //     host: "stockzine.co.kr",
+    //     port: 25
+    // });
     
-    var mailOption = {
-        from : 'mk2monster1572@gmail.com',
-        to : req_email,
-        subject : 'STOCKZINE 비밀번호 변경 메일입니다.',
-        text : 'Hello'
-    };
+    // var mailOption = {
+    //     from : 'stockzine.co.kr',
+    //     to : req_email,
+    //     subject : 'STOCKZINE 비밀번호 변경 메일입니다.',
+    //     text : 'Hello'
+    // };
     
-    transporter.sendMail(mailOption, function(err, info) {
-        if ( err ) {
-            console.error('Send Mail error : ', err);
-        }
-        else {
-            console.log('Message sent : ', info);
-        }
+    // transporter.sendMail(mailOption, function(err, info) {
+    //     if ( err ) {
+    //         console.error('Send Mail error : ', err);
+    //     }
+    //     else {
+    //         console.log('Message sent : ', info);
+    //     }
+    // });
+
+    sendmail({
+        from: 'master@stockzine.co.kr',
+        to: req_email,
+        subject: 'test sendmail',
+        html: 'Mail of test sendmail ',
+      }, function(err, reply) {
+        console.log(err && err.stack);
+        console.dir(reply);
     });
 
     var findEmail = "";

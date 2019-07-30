@@ -77,6 +77,50 @@ function getShotDate(dateString) {
     return shotDateString;
 }
 
+function showLayerPopup(url, title){
+
+    var dom = "";
+    dom += "<div class='layer_pop'>";
+    dom += "<div class='layer_head'>";
+    dom += "<h2>"+title+"</h2>";
+    dom += "<a href='#' class='pop_close'><img src='' alt='닫기'></a>";
+    dom += "</div>";   
+    dom += "<div class='layer_pop_cont'>";
+    dom += "<iframe src='"+url+"'>";
+    dom += "</div>";
+    dom += "</div>";
+
+    var winOT = $(window).scrollTop();
+    var winW = $(window).innerWidth();
+    var winH = $(window).innerHeight();
+
+    
+    $("body").append(dom);
+    $(".layer_pop").css({"top":(winH)+"px"});
+    $(".layer_pop").find("iframe").css({"height":(winH-56)+"px"});
+    
+    $(".layer_pop").animate({"top":"0px"}, 500, function(){
+        $(".layer_pop").find(".pop_close").on("click", function(){
+            $(window).scrollTop(winOT);
+            $(".layer_pop").animate({"top":(winH)+"px"}, 500, function(){
+                $("body").find(".layer_pop").remove();
+            })
+            return false;
+        })
+
+    });
+
+
+    
+
+
+}
+
+function showPopupChart(code){
+    var req_url = "/m/popup/chart?code="+code;
+    showLayerPopup(req_url, code);
+}
+
 
 $(document).ready(function(){
     initHeaderMenu();//헤더 메뉴 or 뒤로가기 셋팅

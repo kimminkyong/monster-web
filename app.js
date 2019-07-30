@@ -35,6 +35,7 @@ var mSubscribe = require('./routes/m/subscribe');
 var mMypage = require('./routes/m/mypage');
 var mNotice = require('./routes/m/notice');
 var mFavorite = require('./routes/m/favorite');
+var mPopup = require('./routes/m/popup');
 var sha256 = require('sha256');
 
 var auth = require('./routes/admin/auth');
@@ -83,6 +84,7 @@ app.use('/m/subscribe', mSubscribe);
 app.use('/m/mypage', mMypage);
 app.use('/m/notice', mNotice);
 app.use('/m/favorite', mFavorite);
+app.use('/m/popup', mPopup);
 
 console.log('init');
 

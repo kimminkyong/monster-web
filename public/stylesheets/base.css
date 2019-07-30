@@ -524,3 +524,12 @@ a.auth_btn{display:block;text-align:center;display:inline-block;background:#0184
 .btn_type1 a.auth_btn{float:right;}
 
 .fake_panel{position:absolute;background:#fff;display:none;}
+
+body{overscroll-behavior:none;}
+
+.layer_pop{width:100%;position:fixed;left:0px;top:0px;z-index:10000;overscroll-behavior-y:contain;overflow:auto;}
+.layer_pop .layer_head{position:relative;height:56px;background:#aaa;}
+.layer_pop .layer_head h2{text-align:center;font-size:24px;padding-top:18px;line-height:28px;}
+.layer_pop .layer_head a{display:block;width:20px;height:20px;position:absolute;top:20px;right:20px;}
+.layer_pop .layer_pop_cont{position:relative;background:#fff;overflow:hidden;}
+.layer_pop .layer_pop_cont iframe{width:100%;border:0;}
