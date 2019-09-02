@@ -90,13 +90,13 @@
                             var l_class = "";
                             var low_mark = "";
                         }else{
-                            var grow_val = ((Math.abs(item.max_price-item.base_price)/item.base_price)*100).toFixed(2);
-                            var c_class = (item.max_price > item.base_price) ? "gap_up" : "gap_down";
-                            var grow_mark = (item.max_price > item.base_price) ? "▲" : "▼";
+                            var grow_val = ((Math.abs(Number(item.max_price)-Number(item.base_price))/Number(item.base_price))*100).toFixed(2);
+                            var c_class = (Number(item.max_price) > Number(item.base_price)) ? "gap_up" : "gap_down";
+                            var grow_mark = (Number(item.max_price) > Number(item.base_price)) ? "▲" : "▼";
 
-                            var low_val = ((Math.abs(item.min_price-item.base_price)/item.base_price)*100).toFixed(2);
-                            var l_class = (item.min_price > item.base_price) ? "red_c" : "blue_c";
-                            var low_mark = (item.min_price > item.base_price) ? "▲" : "▼";
+                            var low_val = ((Math.abs(Number(item.min_price)-Number(item.base_price))/Number(item.base_price))*100).toFixed(2);
+                            var l_class = (Number(item.min_price) > Number(item.base_price)) ? "red_c" : "blue_c";
+                            var low_mark = (Number(item.min_price) > Number(item.base_price)) ? "▲" : "▼";
                         }
                         
                     }

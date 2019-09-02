@@ -40,6 +40,10 @@ var sha256 = require('sha256');
 
 var auth = require('./routes/admin/auth');
 
+//api
+var apiAuth = require('./routes/api/auth');
+var apiUsers = require('./routes/api/users');
+
 var app = express();
 
 
@@ -85,6 +89,10 @@ app.use('/m/mypage', mMypage);
 app.use('/m/notice', mNotice);
 app.use('/m/favorite', mFavorite);
 app.use('/m/popup', mPopup);
+
+//api
+app.use('/api/auth', apiAuth);
+app.use('/api/users', apiUsers);
 
 console.log('init');
 
