@@ -8,7 +8,9 @@ var cfg = require('../../config/jwt_config');
 var util = {};
 
 util.uuid = function(){
-  return uuid4();
+  var uid = uuid4().split('-');
+  var uuid = uid[2]+uid[1]+uid[0]+uid[3]+uid[4];
+  return uuid;
 }
 
 util.successTrue = function(data){ //1 
