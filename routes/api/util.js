@@ -2,9 +2,14 @@
 // var router = express.Router();
 
 var jwt = require('jsonwebtoken');
+var uuid4 = require('uuid4');
 var cfg = require('../../config/jwt_config');
 
 var util = {};
+
+util.uuid = function(){
+  return uuid4();
+}
 
 util.successTrue = function(data){ //1 
   return {
