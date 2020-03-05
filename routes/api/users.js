@@ -44,8 +44,8 @@ router.post('/register', function(req,res,next){
             var q_name = q_email.split("@")[0];
                 //q_name = util.specialCharRemove( q_name );
             var q_password = sha256( req.body.password + q_email );
-            var q_photo = "";
-            var q_phone = "";
+            var q_photo = "a";
+            var q_phone = "a";
             var q_token = "abcdefg";
             var q_type = 'E';
             var q_grade = 1;
