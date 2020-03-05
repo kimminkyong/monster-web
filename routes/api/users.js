@@ -53,13 +53,16 @@ router.post('/register', function(req,res,next){
             var q_push =0;
             var nowdate = new Date(Date.now()).toISOString().replace(/T/, ' ').replace(/\..+/, '');
         
-            var user_query = "INSERT INTO USER (id, email, password, token) VALUES ( '"+q_id+"','"+q_email+"', '"+q_password+"', '"+q_token+"')";
+            var user_query = "INSERT INTO USER (id, email, password, token) VALUES ( '"+q_id+"','"+q_email+"', '"+q_password+"', '"+q_token+"');";
 
-            var user_detail_query = "INSERT INTO USER_DETAIL (id, name, photo, phone, type, grade, state, push, date) VALUES ( '"+q_id+"', '"+q_name+"' ,'"+q_photo+"' ,'"+q_phone+"' ,'"+q_type+"' ,'"+q_grade+"' ,'"+q_state+"', '"+q_push+"', '"+nowdate+"')";
+            var user_detail_query = "INSERT INTO USER_DETAIL (id, name, photo, phone, type, grade, state, push, rdate) VALUES ( '"+q_id+"', '"+q_name+"' ,'"+q_photo+"' ,'"+q_phone+"' ,'"+q_type+"' ,'"+q_grade+"' ,'"+q_state+"', '"+q_push+"', '"+nowdate+"');";
 
             
-            connection.query(user_query + user_detail_query, function(err, rows){
-                res.json(err || !rows[0] || !rows[1] ? util.successFalse(err): util.successTrue(rows));
+            connection.query(user_query, function(err, rows){
+                res.json(err || !rows ? util.successFalse(err): util.successTrue(rows));
+            });  
+            connection.query(user_detail_query, function(err, rows){
+                res.json(err || !rows ? util.successFalse(err): util.successTrue(rows));
             });  
         }
     });
