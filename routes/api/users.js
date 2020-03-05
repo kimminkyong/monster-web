@@ -45,6 +45,7 @@ router.post('/register', function(req,res,next){
             var q_password = sha256( req.body.password + q_email );
             var q_photo = "";
             var q_phone = "";
+            var q_token = "abcdefg";
             var q_type = 'E';
             var q_grade = 1;
             var q_state = 0;
