@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var util     = require('./util');
+var sha256 = require('sha256');
 
 var jwt = require('jsonwebtoken');
 var cfg = require('../../config/jwt_config');
