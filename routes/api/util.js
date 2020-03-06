@@ -4,6 +4,7 @@
 var jwt = require('jsonwebtoken');
 var uuid4 = require('uuid4');
 var cfg = require('../../config/jwt_config');
+var sendmail = require('sendmail')();
 
 var util = {};
 
@@ -11,6 +12,38 @@ util.uuid = function(){
   var uid = uuid4().split('-');
   var uuid = uid[2]+uid[1]+uid[0]+uid[3]+uid[4];
   return uuid;
+};
+
+util.sendEmail = function(to,type){
+    var receiver = to;
+    var sendType = type;
+    var r_subject = "";
+    var r_text = "";
+
+    var uid = uuid4().split('-');
+    var uuid = uid[2]+uid[1]+uid[0]+uid[3]+uid[4];
+    var certificationText = uuid.substring(0,6);
+
+    if(sendType === "f"){
+      r_subject = "STOCKZINE 임시 비밀번호 입니다.";
+      r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 임시 비밀번호를 입력해 주세요.\n["+certificationText+"]";
+    }else if(sendType === "c"){
+      r_subject = "STOCKZINE 인증문자 입니다.";
+      r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 인증 문자를 입력해 주세요.\n["+certificationText+"]";
+    }
+
+    sendmail({
+        from: 'master@stockzine.co.kr',
+        to: receiver,
+        subject: r_subject,
+        html: r_text,
+    }, function(err, reply) {
+        console.log(err && err.stack);
+        if(err) return res.json(util.successFalse(err));
+        else{
+          return res.json(util.successTrue(certificationText));;
+        }
+    });
 }
 
 util.successTrue = function(data){ //1 
