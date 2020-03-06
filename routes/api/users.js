@@ -88,7 +88,7 @@ router.post('/view', function(req,res,next){
         
         if(rows.length > 0){
             
-            res.json( util.successTrue(inrows));
+            res.json( util.successTrue(rows) );
              
 
             
