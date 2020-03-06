@@ -51,8 +51,8 @@ router.post('/login',
                         nick: user.nick
                         }, secret, { expiresIn: '24h', issuer: 'monster.com', subject: 'userToken'}
                     );
-                    res.json(util.successTrue(token));
-                    next();
+                    return res.json(util.successTrue(token));
+                    //next();
                 }else{
                     return res.json(util.successFalse(null,'Password is not collect'));
                 }       
@@ -104,10 +104,10 @@ router.post('/email_login',
                     //로그인 시 고객 정보에 token 값 업데이트 
                     var update_token_query = "UPDATE USER SET token = '"+token+"' WHERE email = '"+user.email+"' ";
                     connection.query( update_token_query, function(err, rows){
-                        res.json(err || !rows ? util.successFalse(err): util.successTrue(token));
+                        return res.json(err || !rows ? util.successFalse(err): util.successTrue(token));
                     }); 
                     //res.json(util.successTrue(token));
-                    next();
+                    //next();
                 }else{
                     return res.json(util.successFalse(null,'Password is not collect'));
                 }       
