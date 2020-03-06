@@ -83,13 +83,23 @@ router.post('/view', function(req,res,next){
         }
     });
 
-    connection.query('SELECT * FROM USER WHERE `email`=?', [userInfo.email], function(err, rows){
+    connection.query('SELECT * FROM USER LEFT JOIN USER_DETAIL ON USER.id=USER_DETAIL.id WHERE USER.email=?', [userInfo.email], function(err, rows){
         if(err) return res.json(util.successFalse(err));
         
         if(rows.length > 0){
-            return res.json(util.successFalse(null,'이미 사용중인 이메일 주소입니다.'));
+            
+            res.json( util.successTrue(inrows));
+             
+
+            
         }else{
-            return res.json(util.successTrue(rows));
+            return res.json(util.successFalse(null,'사용자가 존재하지 않습니다.'));
+                
+
+
+
+
+
             // var q_id = util.uuid();
             // var secret = cfg.jwtSecret;
             // var q_email = req.body.email;
