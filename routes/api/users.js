@@ -40,6 +40,7 @@ router.post('/register', function(req,res,next){
             return res.json(util.successFalse(null,'이미 사용중인 이메일 주소입니다.'));
         }else{
             var q_id = util.uuid();
+            var secret = cfg.jwtSecret;
             var q_email = req.body.email;
             var q_name = q_email.split("@")[0];
                 //q_name = util.specialCharRemove( q_name );
@@ -47,7 +48,7 @@ router.post('/register', function(req,res,next){
             var q_photo = "";
             var q_phone = "";
             var q_token = jwt.sign({
-                email: user.email,
+                email: q_email,
                 nick: q_name
                 }, secret, { expiresIn: '24h', issuer: 'monster.com', subject: 'userToken'}
             );
