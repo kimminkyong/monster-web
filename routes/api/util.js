@@ -8,15 +8,44 @@ var sendmail = require('sendmail')();
 
 var util = {};
 
+//access token check
+util.accessTokenCheck = function(req,res,next){
+  var token = req.headers['x-access-token'];
+  if (!token) return res.json(util.successFalse(null,'token is required!'));
+  else {
+      var exp = decode(token);
+      if (Date.now() <= exp * 1000) {
+          jwt.verify(token, cfg.jwtSecret, function(err, decoded) {
+              if(err) return res.json(util.successFalse(err));
+              else{
+                  req.decoded = decoded;
+                  return res.json(util.successTrue(token));
+              }
+          });
+      } else { 
+          next();
+      } 
+  }
+};
+//refresh token check
+util.refreshTokenCheck = function(token){
+  jwt.verify(token, cfg.jwtSecret, function(err, decoded) {
+    if(err) return false;
+    else{
+        return true;
+    }
+  });
+};
+
 util.uuid = function(){
   var uid = uuid4().split('-');
   var uuid = uid[2]+uid[1]+uid[0]+uid[3]+uid[4];
   return uuid;
 };
 
-util.sendEmail = function(to,type){
+util.sendEmail = function(to,obj){
     var receiver = to;
-    var sendType = type;
+    var sendType = obj.type;
     var r_subject = "";
     var r_text = "";
 
@@ -28,9 +57,9 @@ util.sendEmail = function(to,type){
       r_subject = "STOCKZINE 임시 비밀번호 입니다.";
       r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 임시 비밀번호를 입력해 주세요.\n["+certificationText+"]";
     }else if(sendType === "c"){
-      r_subject = "STOCKZINE 인증문자 입니다.";
-      r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 인증 문자를 입력해 주세요.\n["+certificationText+"]";
-    }
+      r_subject = "STOCKZINE 이메일 인증 확인 메일입니다.";
+      r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 인증 문자를 입력해 주세요.\n["+obj.certifyNumber+"]\n\n 아래의 인증 번호는 30분간 유효합니다.";
+}
 
     sendmail({
         from: 'master@stockzine.co.kr',
@@ -41,7 +70,7 @@ util.sendEmail = function(to,type){
         console.log(err && err.stack);
         if(err) return res.json(util.successFalse(err));
         else{
-          return res.json(util.successTrue(certificationText));;
+          return res.json(util.successTrue(receiver));
         }
     });
 }
