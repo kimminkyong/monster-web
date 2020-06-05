@@ -6,6 +6,8 @@ var uuid4 = require('uuid4');
 var cfg = require('../../config/jwt_config');
 var sendmail = require('sendmail')();
 
+
+
 var util = {};
 
 //access token check
@@ -13,7 +15,9 @@ util.accessTokenCheck = function(req,res,next){
   var token = req.headers['x-access-token'];
   if (!token) return res.json(util.successFalse(null,'token is required!'));
   else {
-      var exp = decode(token);
+      var secret = cfg.jwtSecret;
+      var decoded = jwt.verify(token, secret);
+      var exp = decoded.exp;
       if (Date.now() <= exp * 1000) {
           jwt.verify(token, cfg.jwtSecret, function(err, decoded) {
               if(err) return res.json(util.successFalse(err));
@@ -59,7 +63,7 @@ util.sendEmail = function(to,obj){
     }else if(sendType === "c"){
       r_subject = "STOCKZINE 이메일 인증 확인 메일입니다.";
       r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 인증 문자를 입력해 주세요.\n["+obj.certifyNumber+"]\n\n 아래의 인증 번호는 30분간 유효합니다.";
-}
+    }
 
     sendmail({
         from: 'master@stockzine.co.kr',
@@ -68,9 +72,20 @@ util.sendEmail = function(to,obj){
         html: r_text,
     }, function(err, reply) {
         console.log(err && err.stack);
-        if(err) return res.json(util.successFalse(err));
-        else{
-          return res.json(util.successTrue(receiver));
+        if(err) {
+            return {
+                success:false,
+                message:"발송오류",
+                errors:(err)? util.parseError(err): null,
+                data:null
+            };
+        }else{
+            return {
+                success:true,
+                message:null,
+                errors:null,
+                data:receiver
+            };
         }
     });
 }

@@ -186,7 +186,7 @@ router.post('/email_register', function(req,res,next){
             var user_detail_query = "INSERT INTO USER_DETAIL (id, name, photo, phone, type, grade, state, push, date) VALUES ( '"+q_id+"', '"+q_name+"' ,'"+q_photo+"' ,'"+q_phone+"' ,'"+q_type+"' ,'"+q_grade+"' ,'"+q_state+"', '"+q_push+"', '"+nowdate+"');";
             connection.query(user_query + user_detail_query, function(err, rows){
                 var makeRow ={};
-                makeRow.email = rows.email;
+                makeRow.email = q_email;
                 makeRow.token = a_token;
                 res.json(err || !rows[0] || !rows[1] ? util.successFalse(err): util.successTrue(makeRow));
             });  
@@ -208,7 +208,7 @@ router.post('/email_certified', function(req,res,next){
     var certify_query = "INSERT INTO USER_CERTIFY (email, number) VALUES ( '"+req_email+"','"+obj.certifyNumber+"');";
  
     connection.query(certify_query, function(err, rows){
-        if(err||!user) return res.json(util.successFalse(err));
+        if(err) return res.json(util.successFalse(err));
         else {
             util.sendEmail(req_email, obj);
         }
