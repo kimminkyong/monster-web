@@ -20,7 +20,7 @@ router.post('/get_alg_list',
         connection.query('SELECT * FROM ALGORITHM_LIST ORDER BY id', function(err, rows){
             var algList = rows;
             if(err||!algList) return res.json(util.successFalse(err));
-            return algList;
+            return res.json( algList );
         });
     }
 );
@@ -29,9 +29,9 @@ router.post('/updownDay5',
     function(req,res,next) {
         var code = req.body.algCode;
         connection.query('SELECT * FROM MONSTER_UPDOWN WHERE `code`=? ORDER BY date', [code], function(err, rows){
-            var algList = rows;
-            if(err||!algList) return res.json(util.successFalse(err));
-            return algList;
+            var List = rows;
+            if(err||!List) return res.json(util.successFalse(err));
+            return res.json( List );
         });
     }
 );
@@ -48,9 +48,9 @@ router.post('/month_alg_list',
         var endDate = reqYear+"-"+reqFullMonth+"-31";
 
         connection.query('SELECT mu.*, mc..* FROM MONSTER_UPDOWN AS mu JOIN MONSTER_CALENDAR AS mc ON mu.date=mc.date WHERE `code`=? AND date BETWEEN "'+startDate+'" AND "'+endDate+'" ORDER BY date', [code], function(err, rows){
-            var algList = rows;
-            if(err||!algList) return res.json(util.successFalse(err));
-            return algList;
+            var List = rows;
+            if(err||!List) return res.json(util.successFalse(err));
+            return res.json( List );
         });
     }
 );
@@ -60,7 +60,7 @@ router.post('/get_my_alg_list',
         userConnection.query('SELECT * FROM USER_ALGORITHM WHERE `email`=? ORDER BY NO', function(err, rows){
             var myAlgList = rows;
             if(err||!myAlgList) return res.json(util.successFalse(err));
-            return myAlgList;
+            return res.json( myAlgList );
         });
     }
 );
