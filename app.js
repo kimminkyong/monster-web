@@ -44,6 +44,7 @@ var auth = require('./routes/admin/auth');
 var apiAuth = require('./routes/api/auth');
 var apiUsers = require('./routes/api/users');
 var apiUser = require('./routes/api/user');
+var apiData = require('./routes/api/data');
 
 var app = express();
 
@@ -95,6 +96,7 @@ app.use('/m/popup', mPopup);
 app.use('/api/auth', apiAuth);
 app.use('/api/users', apiUsers);
 app.use('/api/user', apiUser);
+app.use('/api/data', apiData);
 
 console.log('init');
 

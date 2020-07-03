@@ -206,11 +206,12 @@ router.post('/email_certified', function(req,res,next){
     obj.certifyNumber = num6;
 
     var certify_query = "INSERT INTO USER_CERTIFY (email, number) VALUES ( '"+req_email+"','"+obj.certifyNumber+"');";
- 
+
     connection.query(certify_query, function(err, rows){
         if(err) return res.json(util.successFalse(err));
         else {
-            util.sendEmail(req_email, obj);
+          	util.sendEmail(req_email, obj);
+		return res.json( util.successTrue(true) );
         }
     }); 
 

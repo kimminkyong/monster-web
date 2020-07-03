@@ -48,7 +48,7 @@ util.uuid = function(){
 };
 
 util.sendEmail = function(to,obj){
-    var receiver = to;
+ var receiver = to;
     var sendType = obj.type;
     var r_subject = "";
     var r_text = "";
@@ -65,28 +65,33 @@ util.sendEmail = function(to,obj){
       r_text = "안녕하십니까? STOCKZINE 입니다.\n 아래의 인증 문자를 입력해 주세요.\n["+obj.certifyNumber+"]\n\n 아래의 인증 번호는 30분간 유효합니다.";
     }
 
-    sendmail({
+  sendmail({
         from: 'master@stockzine.co.kr',
         to: receiver,
         subject: r_subject,
         html: r_text,
     }, function(err, reply) {
         console.log(err && err.stack);
-        if(err) {
-            return {
-                success:false,
-                message:"발송오류",
-                errors:(err)? util.parseError(err): null,
-                data:null
+	console.log("kmk");
+	console.log(reply);
+	console.log("kmk1");
+        /*
+	if(err) {
+           return {
+              success:false,
+              message:"발송오류",
+              errors:(err)? util.parseError(err): null,
+              data:null
             };
         }else{
-            return {
-                success:true,
-                message:null,
-                errors:null,
-                data:receiver
-            };
+           return {
+             success:true,
+             message:null,
+             errors:null,
+             data:receiver
+           };
         }
+	*/
     });
 }
 
